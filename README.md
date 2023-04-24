@@ -1,13 +1,14 @@
-##Registro Elettronico
-#Scopo:
+## Registro Elettronico
+# Scopo:
 Realizzare un registro elettronico funzionale simile all’applicazione Classeviva con Interfaccia Utente e utilizzo di file.
 
-#Funzionalità:
--Registrazione (email e password, scelta tra Insegnante o Studente o Dirigente, nome, cognome, genere, data di nascita)
--Log-in
--Inserimento di altri dati personali (indirizzo di casa, foto identificativa…)
--Visualizzazione delle attività su un calendario
--(Insegnante) Gestione delle classi
+# Funzionalità:
+
+- Registrazione (email e password, scelta tra Insegnante o Studente o Dirigente, nome, cognome, genere, data di nascita)
+- Log-in
+- Inserimento di altri dati personali (indirizzo di casa, foto identificativa…)
+- Visualizzazione delle attività su un calendario
+- (Insegnante) Gestione delle classi
 -(Insegnante) Gestione dei voti per ogni studente
 -(Insegnante) Gestione di attività (verifiche, compiti…)
 -(Insegnante) Gestione di note/rapporti
