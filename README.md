@@ -31,3 +31,6 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - (Insegnante) Inserimento di link e materiali inerenti al programma
 - (Studente) Visualizzazione programma
 - (Studente) Visualizzazione materiali
+
+## Files:
+Tutti i dati inseribili dagli insegnanti e visualizzabili dagli studenti saranno salvati permanentemente su file
