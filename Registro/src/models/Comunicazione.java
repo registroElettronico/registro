@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
-/**
- *
- * @author studente
- */
 public class Comunicazione {
     private final Classe target;
     private final Persona mittente;
@@ -19,8 +10,6 @@ public class Comunicazione {
         this.mittente = mittente;
         this.contenuto = contenuto;
     }
-
-    
     
     public Classe getTarget() {
         return target;
@@ -33,6 +22,4 @@ public class Comunicazione {
     public String getContenuto() {
         return contenuto;
     }
-    
-    
 }

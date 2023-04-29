@@ -1,14 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package models;
 
-/**
- *
- * @author studente
- */
+import controller.GestoreRegistro;
+
+import java.util.ArrayList;
+
 public class Insegnante extends Persona{
-    
+    private final ArrayList<Classe> classi = new ArrayList<>();
+
+    public ArrayList<Classe> getClassi() {
+        return classi;
+    }
+
+    void addVoto(Classe c, Studente s, Voto val) {
+        if (val == null) throw new NullPointerException("VOTO non valido");
+        s.addVoto(val);
+    }
+
+    void addComunicazione(GestoreRegistro c, Comunicazione com) {
+        if (c == null) throw new NullPointerException("CLASSE non valida");
+        c.addComunicazione(com);
+    }
 }

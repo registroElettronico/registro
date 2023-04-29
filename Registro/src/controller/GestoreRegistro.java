@@ -29,4 +29,9 @@ public class GestoreRegistro {
         if (i == null) throw new NullPointerException("Dirigente non valido");
         dirigenti.add(i);
     }
+
+    public void login (Persona p) {
+        if (p == null) throw new NullPointerException("LOGIN non valido");
+        user = p;
+    }
 }

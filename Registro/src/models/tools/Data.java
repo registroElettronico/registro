@@ -14,10 +14,14 @@ public class Data {
     private final int mm;
     private final int yyyy;
 
+    public Data(int gg, int mm, int yyyy) {
+        this.gg = gg;
+        this.mm = mm;
+        this.yyyy = yyyy;
+    }
+
     @Override
     public String toString() {
-        return "[ " + yyyy + "]";
+        return "[ " + yyyy + "/" + mm + "/" + gg + "]";
     }
-    
-    
 }
