@@ -1,6 +1,7 @@
 package models;
 
-import models.tools.*;
+import models.tools.Data;
+
 
 public class Persona {
     private final String nome;
@@ -60,6 +61,4 @@ public class Persona {
     public String getFoto() {
         return foto;
     }
-    
-    
 }

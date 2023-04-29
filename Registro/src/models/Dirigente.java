@@ -5,10 +5,19 @@
  */
 package models;
 
+import models.tools.Data;
+
 /**
  *
  * @author studente
  */
 public class Dirigente extends Persona{
-    
+
+    public Dirigente(String nome, String cognome, char genere, Data dataDiNascita, String email, String password) {
+        super(nome, cognome, genere, dataDiNascita, email, password);
+    }
+
+    private void addPagella(Studente s, Pagella p) {
+        s.pagella = p;
+    }
 }

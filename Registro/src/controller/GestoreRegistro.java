@@ -12,7 +12,7 @@ public class GestoreRegistro {
     private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private final ArrayList<Studente> studenti = new ArrayList<>();
     private final ArrayList<Dirigente> dirigenti = new ArrayList<>();
-    private final ArrayList<Comunicazione> comunicazioni = new ArrayList<>();
+
     public Persona user;
     
     public void addInsegnante(Insegnante i) {
