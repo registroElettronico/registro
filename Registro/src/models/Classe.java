@@ -3,12 +3,17 @@ package models;
 
 import java.util.ArrayList;
 public class Classe {
+    private String sezione;
     private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private final ArrayList<Studente> studenti = new ArrayList<>();
     private final ArrayList<Attivita> attivita = new ArrayList<>();
     private final ArrayList<Lezione> lezioni = new ArrayList<>();
     private final ArrayList<Comunicazione> comunicazioni = new ArrayList<>();
-    
+
+    public Classe(String sezione) {
+        this.sezione = sezione;
+    }
+
     public ArrayList<Insegnante> getInsegnanti() {
         return insegnanti;
     }
@@ -40,5 +45,9 @@ public class Classe {
     void addComunicazione(Comunicazione com) {
         if (com == null) throw new NullPointerException("COMUNICAZIONE non valida");
         comunicazioni.add(com);
+    }
+
+    public String getSezione() {
+        return sezione;
     }
 }

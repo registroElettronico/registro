@@ -19,6 +19,12 @@ public class Data {
         this.mm = mm;
         this.yyyy = yyyy;
     }
+    
+    public Data(String data) {
+        this.yyyy = Integer.parseInt(data.substring(0, 3));
+        this.mm = Integer.parseInt(data.substring(5, 6));
+        this.gg = Integer.parseInt(data.substring(8, 9));
+    }
 
     @Override
     public String toString() {
