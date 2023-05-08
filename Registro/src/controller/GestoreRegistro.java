@@ -5,11 +5,8 @@
  */
 package controller;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import models.*;
 import models.tools.Data;
@@ -19,6 +16,7 @@ public class GestoreRegistro {
     private final ArrayList<Studente> studenti = new ArrayList<>();
     private final ArrayList<Dirigente> dirigenti = new ArrayList<>();
     private final ArrayList<Classe> classi = new ArrayList<>();
+    public Persona user;
 
     public ArrayList<Insegnante> getInsegnanti() {
         return insegnanti;
@@ -40,55 +38,60 @@ public class GestoreRegistro {
         return user;
     }
 
+    public Classe getClasse(String sezione){
+        for (Classe c: this.classi) if (c.getSezione().equals(sezione)) return c;
+        return null;
+    }
+
     public GestoreRegistro() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
-        br.readLine();
+        BufferedReader bufferedReaderClasse = new BufferedReader(new FileReader("classi.csv"));
+        bufferedReaderClasse.readLine();
+
+        BufferedReader bufferedReaderUtente = new BufferedReader(new FileReader("users.csv"));
+        bufferedReaderUtente.readLine();
+
         String line;
 
-        while((line = br.readLine()) != null) {
+        while((line = bufferedReaderClasse.readLine()) != null) {
             String[] info = line.split(",");
             this.classi.add(new Classe(info[0]));
         }
+        bufferedReaderClasse.close();
 
-        br = new BufferedReader(new FileReader("users.csv"));
-        br.readLine();
-
-        while ((line = br.readLine()) != null) {
+        while ((line = bufferedReaderUtente.readLine()) != null) {
             String[] info = line.split(",");
 
             switch (info[2]) {
                 case "Studente": {
-                    Studente s = new Studente(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0), info[info.length-1]);
+                    Studente s = new Studente(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0), this.getClasse(info[info.length-1]));
                     this.studenti.add(s);
                     s.getClasse().addStudente(s);
-
                     break;
                 }
                 case "Insegnante": {
+                    bufferedReaderClasse = new BufferedReader(new FileReader("classi.csv"));
                     Insegnante ins = new Insegnante(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0));
                     this.insegnanti.add(ins);  //aggiunge l'insegnante alla lista
 
                     //legge le classi per capire a quali classi fa parte il prof
-                    br = new BufferedReader(new FileReader("classi.csv"));
-                    br.readLine();
-
-                    while((line = br.readLine()) != null) {
+                    while((line = bufferedReaderClasse.readLine()) != null) {
                         String[] infoClassi = line.split(",");
-
                         int i = 1;
                         while (!infoClassi[i].equals("|")) {    //partendo dalla seconda stringa, scorre fino a "|"
-                            if (infoClassi[i].equals(info[3])) {    //se trova una email uguale alla propria ha trovato la classe giusta
-                                for (Classe c: this.classi){           //scorre tutte le classi nella lista per accedere all'oggetto classe
-                                    if (c.getSezione().equals(infoClassi[0])) { //se trova la sezione corrispondente
-                                        c.addInsegnante(ins); //aggiune l'insegnante alla classe
-                                        ins.addClasse(c); //aggiunge la classe all'insegnante
-                                    }
+
+                            if (infoClassi[i].equals(ins.getEmail())) {    //se trova una email uguale alla propria ha trovato la classe giusta
+
+                                Classe c = this.getClasse(infoClassi[0]);   //scorre tutte le classi nella lista per accedere all'oggetto classe
+                                if (c!=null) {
+                                    c.addInsegnante(ins); //aggiune l'insegnante alla classe
+                                    ins.addClasse(c); //aggiunge la classe all'insegnante
                                 }
+
                             }
                             i++;
                         }
-                    }
 
+                    }
                     break;
                 }
 
@@ -98,9 +101,10 @@ public class GestoreRegistro {
                 }
             }
         }
-    }
 
-    public Persona user;
+        bufferedReaderUtente.close();
+        bufferedReaderClasse.close();
+    }
     
     public void addInsegnante(Insegnante i) {
         if (i == null) throw new NullPointerException("Insegnante non valido");
@@ -117,8 +121,75 @@ public class GestoreRegistro {
         dirigenti.add(i);
     }
 
-    public void login (Persona p) {
-        if (p == null) throw new NullPointerException("LOGIN non valido");
-        user = p;
+    public void login (String email, String password) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("users.csv"));
+        String line;
+        br.readLine();
+
+        while ((line = br.readLine()) != null) {
+            String[] info = line.split(",");
+            if (info[0].equals(email) && info[1].equals(password)) {
+
+                switch (info[2]) {
+                    case "Studente": {
+                        for (Studente s: this.getStudenti()) {
+                            if (s.getEmail().equals(info[0])) {
+                                this.user = s;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case "Insegnante": {
+                        for (Insegnante i: this.getInsegnanti()) {
+                            if (i.getEmail().equals(info[0])) {
+                                this.user = i;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case "Dirigente": {
+                        for (Dirigente d: this.getDirigenti()) {
+                            if (d.getEmail().equals(info[0])) {
+                                this.user = d;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        br.close();
+    }
+
+    public void register(String email, String password, String tipologia, String nome, String cognome, String date, char genere, String classe) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));
+        bw.append(email + "," + password + "," + tipologia + "," + nome + "," + cognome + "," + date + "," + genere);
+        bw.flush();
+
+        switch (tipologia) {
+            case "Studente": {
+                Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
+                this.studenti.add(s);
+                s.getClasse().addStudente(s);
+
+                break;
+            }
+            case "Insegnante": {
+                this.insegnanti.add(new Insegnante(email, password, nome, cognome, new Data(date), genere));  //aggiunge l'insegnante alla lista
+                break;
+            }
+
+            case "Dirigente": {
+                this.dirigenti.add(new Dirigente(email, password, nome, cognome, new Data(date), genere));
+                break;
+            }
+        }
+
+        bw.close();
     }
 }

@@ -2,13 +2,12 @@ package view;
 
 import controller.GestoreRegistro;
 import models.*;
-import models.tools.Data;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         GestoreRegistro gest = new GestoreRegistro();
         Scanner scan = new Scanner(System.in);
 
@@ -22,58 +21,16 @@ public class Main {
 
         switch(risposta) {
             case "Login": {
-                BufferedReader br = new BufferedReader(new FileReader("users.csv"));
                 System.out.println("Email: ");
                 String email = scan.nextLine();
                 System.out.println("Password: ");
                 String password = scan.nextLine();
 
-                String line;
-                br.readLine();
-
-                while ((line = br.readLine()) != null) {
-                    String[] info = line.split(",");
-                    if (info[0].equals(email) && info[1].equals(password)) {
-
-                        switch (info[2]) {
-                            case "Studente": {
-                                for (Studente s: gest.getStudenti()) {
-                                    if (s.getEmail().equals(info[0])) {
-                                        gest.user = s;
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                            case "Insegnante": {
-                                for (Insegnante i: gest.getInsegnanti()) {
-                                    if (i.getEmail().equals(info[0])) {
-
-                                        gest.user = i;
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                            case "Dirigente": {
-                                for (Dirigente d: gest.getDirigenti()) {
-                                    if (d.getEmail().equals(info[0])) {
-                                        gest.user = d;
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
+                gest.login(email, password);
                 break;
             }
 
             case "Registrazione": {
-                BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));
-
                 System.out.println("Studente, Insegnante o Dirigente?");
                 String tipologia = scan.nextLine();
 
@@ -95,12 +52,19 @@ public class Main {
                 System.out.println("Password: ");
                 String password = scan.nextLine();
 
-                bw.append(email + "," + password + "," + tipologia + "," + nome + "," + cognome + "," + date + "," + genere);
-                bw.flush();
+                if (tipologia.equals("Studente")) {
+                    System.out.println("Classe: ");
+                    String classe = scan.nextLine();
+
+                    gest.register(email, password, tipologia, nome, cognome, date, genere, classe);
+                }
+                else gest.register(email, password, tipologia, nome, cognome, date, genere, null);
+                break;
             }
         }
 
 
+        //                          MENU:
         int opzione = 0;
         do {
             System.out.println("-------------------------------------------------");
@@ -115,12 +79,9 @@ public class Main {
                 System.out.println("6. Aggiungi rapporto;");
 
                 opzione = scan.nextInt();
-                System.out.println(((Insegnante) gest.user).getClassi());
-
 
                 switch (opzione) {
                     case 1: {
-                        System.out.println("AAAAAAAA");
                         for (Classe c: ((Insegnante) gest.user).getClassi()) {
                             System.out.println(c.getSezione() + ": ");
                             for (Studente s: c.getStudenti()) {
@@ -153,8 +114,6 @@ public class Main {
                     default: break;
                 }
             }
-
-
         } while(opzione != 0);
     }
 }

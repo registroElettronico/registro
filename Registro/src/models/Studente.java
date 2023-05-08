@@ -25,20 +25,9 @@ public class Studente extends Persona{
     public final ArrayList<Nota> note = new ArrayList<>();
     public Pagella pagella;
 
-    public Studente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere, String classe) throws IOException {
+    public Studente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere, Classe classe) throws IOException {
         super(email, password, nome, cognome, dataDiNascita, genere);
-
-        BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
-        br.readLine();
-        String line;
-
-        while((line = br.readLine()) != null) {
-            String[] info = line.split(",");
-            if (info[0].equals(classe)) {
-                this.classe = new Classe(info[0]);
-                break;
-            }
-        }
+        this.classe = classe;
     }
 
     public Classe getClasse() {
