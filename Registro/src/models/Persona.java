@@ -13,7 +13,7 @@ public class Persona {
     private String indirizzo;
     private String foto;
 
-    public Persona(String nome, String cognome, char genere, Data dataDiNascita, String email, String password) {
+    public Persona(String email, String password, String nome, String cognome, Data dataDiNascita, char genere) {
         this.nome = nome;
         this.cognome = cognome;
         this.genere = genere;

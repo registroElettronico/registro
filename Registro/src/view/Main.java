@@ -11,20 +11,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         GestoreRegistro gest = new GestoreRegistro();
         Scanner scan = new Scanner(System.in);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));
-        BufferedReader br = new BufferedReader(new FileReader("users.csv"));
-        
+
         System.out.println("Login o Registrazione?");
         String risposta = scan.nextLine();
         
         while (!"Login".equals(risposta) && !"Registrazione".equals(risposta)) {
-            System.out.println(risposta + "\n");
             System.out.println("Risposta non valida. Login o Registrazione?");
             risposta = scan.nextLine();
         }
 
         switch(risposta) {
             case "Login": {
+                BufferedReader br = new BufferedReader(new FileReader("users.csv"));
                 System.out.println("Email: ");
                 String email = scan.nextLine();
                 System.out.println("Password: ");
@@ -36,32 +34,46 @@ public class Main {
                 while ((line = br.readLine()) != null) {
                     String[] info = line.split(",");
                     if (info[0].equals(email) && info[1].equals(password)) {
-                        Persona user = null;
-                        Data data = new Data(info[5]);
+
                         switch (info[2]) {
                             case "Studente": {
-                                user = new Studente(info[3], info[4], info[6].charAt(0), data, info[1], info[2], info[7]);
+                                for (Studente s: gest.getStudenti()) {
+                                    if (s.getEmail().equals(info[0])) {
+                                        gest.user = s;
+                                        break;
+                                    }
+                                }
                                 break;
                             }
                             case "Insegnante": {
-                                user = new Insegnante(info[3], info[4], info[6].charAt(0), data, info[1], info[2]);
+                                for (Insegnante i: gest.getInsegnanti()) {
+                                    if (i.getEmail().equals(info[0])) {
+
+                                        gest.user = i;
+                                        break;
+                                    }
+                                }
                                 break;
                             }
                             case "Dirigente": {
-                                user = new Dirigente(info[3], info[4], info[6].charAt(0), data, info[1], info[2]);
+                                for (Dirigente d: gest.getDirigenti()) {
+                                    if (d.getEmail().equals(info[0])) {
+                                        gest.user = d;
+                                        break;
+                                    }
+                                }
                                 break;
                             }
                         }
-
-                        gest.user = user;
-
                         break;
                     }
                 }
-
                 break;
             }
+
             case "Registrazione": {
+                BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));
+
                 System.out.println("Studente, Insegnante o Dirigente?");
                 String tipologia = scan.nextLine();
 
@@ -72,7 +84,7 @@ public class Main {
                 String cognome = scan.nextLine();
 
                 System.out.println("Genere: ");
-                char genere = scan.next().charAt(0);
+                char genere = scan.nextLine().charAt(0);
 
                 System.out.println("Data di nascita: (yyyy/mm/gg):");
                 String date = scan.nextLine();
@@ -88,17 +100,27 @@ public class Main {
             }
         }
 
-        risposta = "";
+
+        int opzione = 0;
         do {
+            System.out.println("-------------------------------------------------");
             if (gest.user instanceof Insegnante) {
                 System.out.println("OPZIONI:");
+                System.out.println("0. Esci;");
                 System.out.println("1. Visualizza classi;");
-                System.out.println("2. Esci;");
+                System.out.println("2. Aggiungi un voto;");
+                System.out.println("3. Aggiungi attività;");
+                System.out.println("4. Aggiungi lezione;");
+                System.out.println("5. Aggiungi assenza;");
+                System.out.println("6. Aggiungi rapporto;");
 
-                risposta = scan.nextLine();
+                opzione = scan.nextInt();
+                System.out.println(((Insegnante) gest.user).getClassi());
 
-                switch (risposta) {
-                    case "Visualizza classi": {
+
+                switch (opzione) {
+                    case 1: {
+                        System.out.println("AAAAAAAA");
                         for (Classe c: ((Insegnante) gest.user).getClassi()) {
                             System.out.println(c.getSezione() + ": ");
                             for (Studente s: c.getStudenti()) {
@@ -107,11 +129,32 @@ public class Main {
                         }
                         break;
                     }
+
+                    case 2: {
+                        break;
+                    }
+
+                    case 3: {
+                        break;
+                    }
+
+                    case 4: {
+                        break;
+                    }
+
+                    case 5: {
+                        break;
+                    }
+
+                    case 6: {
+                        break;
+                    }
+
                     default: break;
                 }
             }
 
 
-        } while(risposta != "Esci");
+        } while(opzione != 0);
     }
 }

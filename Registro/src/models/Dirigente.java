@@ -13,8 +13,8 @@ import models.tools.Data;
  */
 public class Dirigente extends Persona{
 
-    public Dirigente(String nome, String cognome, char genere, Data dataDiNascita, String email, String password) {
-        super(nome, cognome, genere, dataDiNascita, email, password);
+    public Dirigente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere) {
+        super(email, password, nome, cognome, dataDiNascita, genere);
     }
 
     private void addPagella(Studente s, Pagella p) {

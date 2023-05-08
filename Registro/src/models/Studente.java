@@ -25,8 +25,8 @@ public class Studente extends Persona{
     public final ArrayList<Nota> note = new ArrayList<>();
     public Pagella pagella;
 
-    public Studente(String nome, String cognome, char genere, Data dataDiNascita, String email, String password, String classe) throws IOException {
-        super(nome, cognome, genere, dataDiNascita, email, password);
+    public Studente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere, String classe) throws IOException {
+        super(email, password, nome, cognome, dataDiNascita, genere);
 
         BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
         br.readLine();
@@ -39,5 +39,9 @@ public class Studente extends Persona{
                 break;
             }
         }
+    }
+
+    public Classe getClasse() {
+        return classe;
     }
 }
