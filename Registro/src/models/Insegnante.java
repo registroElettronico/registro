@@ -4,6 +4,7 @@ package models;
 import controller.GestoreRegistro;
 import models.tools.Data;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Insegnante extends Persona{
@@ -17,9 +18,8 @@ public class Insegnante extends Persona{
         return classi;
     }
 
-    public void addVoto(Studente s, Voto val) {
-        if (val == null) throw new NullPointerException("VOTO non valido");
-        s.voti.add(val);
+    public void addVoto(Studente s, Voto val) throws IOException {
+        s.addVoto(val);
     }
 
     public void addComunicazione(Comunicazione com) {
@@ -37,13 +37,11 @@ public class Insegnante extends Persona{
     }
 
     public void addAssenza(Studente s) {
-        if (s == null) throw new NullPointerException("Studente non valido");
-        s.assenze.add(false);
+        s.addAssenza();
     }
 
     public void addRapporto(Studente s, Nota n) {
-        if (s == null) throw new NullPointerException("Studente non valido");
-        s.note.add(n);
+        s.addRapporto(n);
     }
 
     public void addClasse(Classe c) {

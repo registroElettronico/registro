@@ -80,6 +80,7 @@ public class Main {
                 System.out.println("6. Aggiungi rapporto;");
 
                 opzione = scan.nextInt();
+                System.out.flush();
 
                 switch (opzione) {
                     case 1: {
@@ -94,15 +95,17 @@ public class Main {
 
                     case 2: {
                         System.out.println("Scegli lo studente: ");
+
                         for (Classe c: ((Insegnante) gest.user).getClassi()) {
                             for (Studente s: c.getStudenti()) {
-                                System.out.println(s.getClasse() + "| " + s.getNome() + " " + s.getCognome());
+                                System.out.println(s.getClasse().getSezione() + "| " + s.getNome() + " " + s.getCognome());
                             }
                         }
 
-                        System.out.println("Nome:");
+                        System.out.println("Nome: ");
                         String nome = scan.nextLine();
-                        System.out.println("Cognome:");
+
+                        System.out.println("Cognome: ");
                         String cognome = scan.nextLine();
 
                         Studente student = null;
