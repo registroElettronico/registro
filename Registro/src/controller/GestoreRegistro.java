@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.*;
@@ -86,7 +81,6 @@ public class GestoreRegistro {
                                     c.addInsegnante(ins); //aggiune l'insegnante alla classe
                                     ins.addClasse(c); //aggiunge la classe all'insegnante
                                 }
-
                             }
                             i++;
                         }
@@ -105,31 +99,32 @@ public class GestoreRegistro {
         bufferedReaderUtente.close();
         bufferedReaderClasse.close();
     }
-    
-    public void addInsegnante(Insegnante i) {
+
+    private void addInsegnante(Insegnante i) {
         if (i == null) throw new NullPointerException("Insegnante non valido");
         insegnanti.add(i);
     }
-    
-    public void addStudente(Studente i) {
+
+    private void addStudente(Studente i) {
         if (i == null) throw new NullPointerException("Studente non valido");
         studenti.add(i);
     }
     
-    public void addDirigente(Dirigente i) {
+    private void addDirigente(Dirigente i) {
         if (i == null) throw new NullPointerException("Dirigente non valido");
         dirigenti.add(i);
     }
 
-    public void login (String email, String password) throws IOException {
+    public boolean login (String email, String password) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("users.csv"));
         String line;
         br.readLine();
 
+        boolean okLogin = false;
         while ((line = br.readLine()) != null) {
             String[] info = line.split(",");
             if (info[0].equals(email) && info[1].equals(password)) {
-
+                okLogin = true;
                 switch (info[2]) {
                     case "Studente": {
                         for (Studente s: this.getStudenti()) {
@@ -164,6 +159,7 @@ public class GestoreRegistro {
         }
 
         br.close();
+        return okLogin;
     }
 
     public void register(String email, String password, String tipologia, String nome, String cognome, String date, char genere, String classe) throws IOException {
@@ -174,18 +170,17 @@ public class GestoreRegistro {
         switch (tipologia) {
             case "Studente": {
                 Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
-                this.studenti.add(s);
-                s.getClasse().addStudente(s);
+                this.addStudente(s);    //aggiunge lo studente alla lista
+                s.getClasse().addStudente(s);   //aggiunge lo studente alla classe alla lista
 
                 break;
             }
             case "Insegnante": {
-                this.insegnanti.add(new Insegnante(email, password, nome, cognome, new Data(date), genere));  //aggiunge l'insegnante alla lista
+                this.addInsegnante(new Insegnante(email, password, nome, cognome, new Data(date), genere)); //aggiunge l'insegnante alla lista
                 break;
             }
-
             case "Dirigente": {
-                this.dirigenti.add(new Dirigente(email, password, nome, cognome, new Data(date), genere));
+                this.addDirigente(new Dirigente(email, password, nome, cognome, new Data(date), genere)); //aggiunge il dirigente alla lista
                 break;
             }
         }

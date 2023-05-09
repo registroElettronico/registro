@@ -2,12 +2,13 @@ package view;
 
 import controller.GestoreRegistro;
 import models.*;
+import models.tools.Data;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         GestoreRegistro gest = new GestoreRegistro();
         Scanner scan = new Scanner(System.in);
 
@@ -92,6 +93,39 @@ public class Main {
                     }
 
                     case 2: {
+                        System.out.println("Scegli lo studente: ");
+                        for (Classe c: ((Insegnante) gest.user).getClassi()) {
+                            for (Studente s: c.getStudenti()) {
+                                System.out.println(s.getClasse() + "| " + s.getNome() + " " + s.getCognome());
+                            }
+                        }
+
+                        System.out.println("Nome:");
+                        String nome = scan.nextLine();
+                        System.out.println("Cognome:");
+                        String cognome = scan.nextLine();
+
+                        Studente student = null;
+
+                        for (Classe c: ((Insegnante) gest.user).getClassi()) {
+                            for (Studente s: c.getStudenti()) {
+                                if (s.getNome().equals(nome) && s.getCognome().equals(cognome)) student = s;
+                            }
+                        }
+
+                        if (student == null) {
+                            System.out.println("SCELTA NON VALIDA");
+                            break;
+                        }
+
+                        System.out.println("Materia: ");
+                        String materia = scan.nextLine();
+                        System.out.println("Voto: ");
+                        float voto = scan.nextFloat();
+                        System.out.println("Data: ");
+                        String data = scan.nextLine();
+
+                        ((Insegnante) gest.user).addVoto(student, new Voto(voto, materia, new Data(data)));
                         break;
                     }
 
