@@ -30,12 +30,9 @@ public class Studente extends Persona{
         if (val == null) throw new NullPointerException("VOTO non valido");
         this.voti.add(val);
 
-        BufferedReader br = new BufferedReader(new FileReader("student/votes.csv"));
         BufferedWriter bw = new BufferedWriter(new FileWriter("student/votes.csv"));
 
-        String[] content = (String[]) br.lines().toArray();
-
-        for (String s: content) System.out.println(s);
+        bw.write(this.getEmail()+","+val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
 
         bw.close();
     }
@@ -48,5 +45,4 @@ public class Studente extends Persona{
         if (n == null) throw new NullPointerException("NOTA non valida");
         this.note.add(n);
     }
-
 }

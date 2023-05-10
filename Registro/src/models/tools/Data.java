@@ -28,6 +28,6 @@ public class Data {
 
     @Override
     public String toString() {
-        return "[ " + yyyy + "/" + mm + "/" + gg + "]";
+        return yyyy + "/" + mm + "/" + gg;
     }
 }

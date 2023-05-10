@@ -80,7 +80,6 @@ public class Main {
                 System.out.println("6. Aggiungi rapporto;");
 
                 opzione = scan.nextInt();
-                System.out.flush();
 
                 switch (opzione) {
                     case 1: {
@@ -103,10 +102,10 @@ public class Main {
                         }
 
                         System.out.println("Nome: ");
-                        String nome = scan.nextLine();
+                        String nome = scan.next();
 
                         System.out.println("Cognome: ");
-                        String cognome = scan.nextLine();
+                        String cognome = scan.next();
 
                         Studente student = null;
 
@@ -122,11 +121,11 @@ public class Main {
                         }
 
                         System.out.println("Materia: ");
-                        String materia = scan.nextLine();
+                        String materia = scan.next();
                         System.out.println("Voto: ");
                         float voto = scan.nextFloat();
-                        System.out.println("Data: ");
-                        String data = scan.nextLine();
+                        System.out.println("Data (yyyy/mm/gg): ");
+                        String data = scan.next();
 
                         ((Insegnante) gest.user).addVoto(student, new Voto(voto, materia, new Data(data)));
                         break;
