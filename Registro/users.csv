@@ -1,1 +1,4 @@
-alessandro.denti@studenti.iispascal.it,password,Studente,Alessandro,Denti,2005/04/12,M
+email,password,tipologia,Nome,Cognome,Data,Genere,classe,indirizzo,foto
+alessandro.denti@studenti.iispascal.it,password,Studente,Alessandro,Denti,2005/04/12,M,4C,,
+filippo.saccani@studenti.iispascal.it,password,Insegnante,Filippo,Saccani,2006/01/15,M,,,
+federico.bonini@studenti.iispascal.it,password,Studente,Federico,Bonini,2005/06/03,M,4D,,
