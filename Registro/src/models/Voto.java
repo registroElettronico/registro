@@ -16,7 +16,6 @@ public class Voto {
     public float getVoto() {
         return voto;
     }
-
     public String getMateria() {
         return materia;
     }

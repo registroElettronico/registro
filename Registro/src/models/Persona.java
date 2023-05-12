@@ -3,7 +3,7 @@ package models;
 import models.tools.Data;
 
 
-public class Persona {
+public abstract class Persona {
     private final String nome;
     private final String cognome;
     private final char genere;

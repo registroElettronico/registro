@@ -30,10 +30,28 @@ public class Studente extends Persona{
         if (val == null) throw new NullPointerException("VOTO non valido");
         this.voti.add(val);
 
+        //scrive il voto sul file dei voti
+        BufferedReader br = new BufferedReader(new FileReader("student/votes.csv"));
+
+        boolean giaPresente = false;
+        String lineContent;
+        String content = "";
+
+        while ((lineContent = br.readLine()) != null) {
+            content += lineContent;
+
+            if (lineContent.split(",")[0].equals(this.getEmail())) {
+                giaPresente = true;
+                content += ("," + val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
+            }
+
+            content += "\n";
+        }
+        br.close();
+        if (!giaPresente) content += (this.getEmail()+","+val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
+
         BufferedWriter bw = new BufferedWriter(new FileWriter("student/votes.csv"));
-
-        bw.write(this.getEmail()+","+val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
-
+        bw.write(content);
         bw.close();
     }
 
