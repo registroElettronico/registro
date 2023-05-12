@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
             if (!oklogin) {
                 this.jLabel4.setText("Username o Password non corretti!");
             }
-            else if(gest.user instanceof Studente){
+            else if(gest.getUser() instanceof Studente){
                 RegistroStudente regStu = new RegistroStudente();
                 regStu.setVisible(true);
                 this.setVisible(false);// apriamo altra scheda

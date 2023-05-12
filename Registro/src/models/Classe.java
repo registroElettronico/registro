@@ -1,6 +1,7 @@
 
 package models;
 
+import java.io.*;
 import java.util.ArrayList;
 public class Classe {
     private String sezione;
@@ -27,9 +28,9 @@ public class Classe {
         insegnanti.add(i);
     }
     
-    public void addStudente(Studente i) {
-        if (i == null) throw new NullPointerException("Studente non valido");
-        studenti.add(i);
+    public void addStudente(Studente s) throws IOException {
+        if (s == null) throw new NullPointerException("Studente non valido");
+        studenti.add(s);
     }
     
     public void addAttivita (Attivita i) {
