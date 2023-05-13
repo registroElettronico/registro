@@ -128,6 +128,26 @@ public class Main {
                             ((Insegnante) gest.getUser()).addVoto(student, new Voto(voto, materia, new Data(data)));
                         }
                         case 3 -> {
+                            System.out.println("Classe: ");
+                            String classe = scan.nextLine();
+
+                            System.out.println("Tipo (Verifica/Attività/Compito): ");
+                            String tipo = scan.nextLine();
+
+                            System.out.println("Data (yyyy/mm/gg): ");
+                            String data = scan.nextLine();
+
+                            System.out.println("Contenuto: ");
+                            String content = scan.nextLine();
+
+                            System.out.println("Ora inizio: ");
+                            int start = scan.nextInt();
+
+                            System.out.println("Ora fine: ");
+                            int end = scan.nextInt();
+
+
+                            ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
                         }
                         case 4 -> {
                         }

@@ -28,19 +28,19 @@ public class Classe {
         insegnanti.add(i);
     }
     
-    public void addStudente(Studente s) throws IOException {
+    public void addStudente(Studente s)  {
         if (s == null) throw new NullPointerException("Studente non valido");
         studenti.add(s);
     }
     
-    public void addAttivita (Attivita i) {
-        if (i == null) throw new NullPointerException("Attivita non valido");
-        attivita.add(i);
+    public void addAttivita (Attivita a) {
+        if (a == null) throw new NullPointerException("Attività non valida");
+        attivita.add(a);
     }
     
-    public void addLezione (Lezione i) {
-        if (i == null) throw new NullPointerException("Lezione non valida");
-        lezioni.add(i);
+    public void addLezione (Lezione l) {
+        if (l == null) throw new NullPointerException("Lezione non valida");
+        lezioni.add(l);
     }
 
     void addComunicazione(Comunicazione com) {

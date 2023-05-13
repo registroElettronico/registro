@@ -3,13 +3,14 @@ package controller;
 import java.io.*;
 import java.util.ArrayList;
 
+import controllerFile.GestoreFile;
 import models.*;
 import models.tools.Data;
 
 public class GestoreRegistro {
     private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private final ArrayList<Studente> studenti = new ArrayList<>();
-    private final ArrayList<Classe> classi = new ArrayList<>();
+    private ArrayList<Classe> classi = new ArrayList<>();
     private Persona user;
 
     public ArrayList<Insegnante> getInsegnanti() {
@@ -34,20 +35,12 @@ public class GestoreRegistro {
     }
 
     public GestoreRegistro() throws IOException {
-        BufferedReader bufferedReaderClasse = new BufferedReader(new FileReader("classi.csv"));
-        bufferedReaderClasse.readLine();
-
         BufferedReader bufferedReaderUtente = new BufferedReader(new FileReader("users.csv"));
         bufferedReaderUtente.readLine();
 
+        this.classi = GestoreFile.loadClassi();
+
         String line;
-
-        while((line = bufferedReaderClasse.readLine()) != null) {
-            String[] info = line.split(",");
-            this.classi.add(new Classe(info[0]));
-        }
-        bufferedReaderClasse.close();
-
         while ((line = bufferedReaderUtente.readLine()) != null) {
             String[] info = line.split(",");
 
