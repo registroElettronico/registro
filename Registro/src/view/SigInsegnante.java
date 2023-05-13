@@ -5,6 +5,11 @@
  */
 package view;
 
+import controller.GestoreRegistro;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author dential
@@ -184,9 +189,34 @@ public class SigInsegnante extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        try {
+            GestoreRegistro gest = new GestoreRegistro();
+            String nome = this.jTextField1.getText();
+            String cognome = this.jTextField4.getText();
+            String email = this.jTextField2.getText();
+            String password = this.jTextField5.getText();
+            String date = this.jTextField3.getText();
+            String genere = this.jTextField6.getText();
+            
+            boolean okSignup = gest.register(email, password, tipologia, nome, cognome, date, 0, genere);
+            
+            System.out.println("okSignup = " + okSignup);
+            
+            if(!okSignup){
+                
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(SigInsegnante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         Login log = new Login();
         log.setVisible(true);
         this.setVisible(false);
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
