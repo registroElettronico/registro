@@ -8,9 +8,9 @@ import models.*;
 import models.tools.Data;
 
 public class GestoreRegistro {
-    private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
-    private final ArrayList<Studente> studenti = new ArrayList<>();
-    private ArrayList<Classe> classi = new ArrayList<>();
+    private ArrayList<Insegnante> insegnanti;
+    private ArrayList<Studente> studenti;
+    private ArrayList<Classe> classi;
     private Persona user;
 
     public ArrayList<Insegnante> getInsegnanti() {
@@ -35,50 +35,10 @@ public class GestoreRegistro {
     }
 
     public GestoreRegistro() throws IOException {
-        BufferedReader bufferedReaderUtente = new BufferedReader(new FileReader("users.csv"));
-        bufferedReaderUtente.readLine();
-
-        this.classi = GestoreFile.loadClassi();
-
-        String line;
-        while ((line = bufferedReaderUtente.readLine()) != null) {
-            String[] info = line.split(",");
-
-            switch (info[2]) {
-                case "Studente" -> {
-                    Studente s = new Studente(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0), this.getClasse(info[info.length - 1]));
-                    this.studenti.add(s);
-                    s.getClasse().addStudente(s);
-                }
-                case "Insegnante" -> {
-                    bufferedReaderClasse = new BufferedReader(new FileReader("classi.csv"));
-                    Insegnante ins = new Insegnante(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0));
-                    this.insegnanti.add(ins);  //aggiunge l'insegnante alla lista
-
-                    //legge le classi per capire a quali classi fa parte il prof
-                    while ((line = bufferedReaderClasse.readLine()) != null) {
-                        String[] infoClassi = line.split(",");
-                        int i = 1;
-                        while (!infoClassi[i].equals("|")) {    //partendo dalla seconda stringa, scorre fino a "|"
-
-                            if (infoClassi[i].equals(ins.getEmail())) {    //se trova una email uguale alla propria ha trovato la classe giusta
-
-                                Classe c = this.getClasse(infoClassi[0]);   //scorre tutte le classi nella lista per accedere all'oggetto classe
-                                if (c != null) {
-                                    c.addInsegnante(ins); //aggiune l'insegnante alla classe
-                                    ins.addClasse(c); //aggiunge la classe all'insegnante
-                                }
-                            }
-                            i++;
-                        }
-
-                    }
-                }
-            }
-        }
-
-        bufferedReaderUtente.close();
-        bufferedReaderClasse.close();
+        GestoreFile.load();
+        this.classi = GestoreFile.getClassi();
+        this.studenti = GestoreFile.getStudenti();
+        this.insegnanti = GestoreFile.getInsegnanti();
     }
 
     private void addInsegnante(Insegnante i) {
@@ -92,38 +52,22 @@ public class GestoreRegistro {
     }
 
     public boolean login (String email, String password) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("users.csv"));
-        String line;
-        br.readLine();
-
         boolean okLogin = false;
-        while ((line = br.readLine()) != null) {
-            String[] info = line.split(",");
-            if (info[0].equals(email) && info[1].equals(password)) {
+        for (Studente s: this.studenti) {
+            if (s.getEmail().equals(email) && s.getPassword().equals(password)) {
                 okLogin = true;
-                switch (info[2]) {
-                    case "Studente" -> {
-                        for (Studente s : this.getStudenti()) {
-                            if (s.getEmail().equals(info[0])) {
-                                this.user = s;
-                                break;
-                            }
-                        }
-                    }
-                    case "Insegnante" -> {
-                        for (Insegnante i : this.getInsegnanti()) {
-                            if (i.getEmail().equals(info[0])) {
-                                this.user = i;
-                                break;
-                            }
-                        }
-                    }
+                this.user = s;
+            }
+        }
+        if (this.user == null) {
+            for (Insegnante i: this.insegnanti) {
+                if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
+                    okLogin = true;
+                    this.user = i;
                 }
-                break;
             }
         }
 
-        br.close();
         return okLogin;
     }
 
