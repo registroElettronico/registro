@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Login.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/AggNote.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Index.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Note.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Main.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/controller/GestoreRegistro.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Assenze.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/AggAssenze.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Voti.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/Signup.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/AggVoti.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/SigInsegnante.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/RegistroInsegnante.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/SigStudente.java</file>
+            <file>file:/C:/Users/alle/Desktop/registro/Registro/src/view/RegistroStudente.java</file>
+        </group>
     </open-files>
 </project-private>

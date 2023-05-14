@@ -82,6 +82,7 @@ public class Signup extends javax.swing.JFrame {
         SigInsegnante ins = new SigInsegnante();
         ins.setVisible(true);
         this.setVisible(false);
+        String tipologia = "Insegnante";
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
