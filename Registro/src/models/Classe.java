@@ -25,7 +25,7 @@ public class Classe {
         return studenti;
     }
     
-    public void addInsegnante(Insegnante i) {
+    public void addInsegnante(Insegnante i) throws IOException {
         if (i == null) throw new NullPointerException("Insegnante non valido");
         insegnanti.add(i);
         GestoreFile.addTeacherToClass(this, i);
@@ -34,7 +34,6 @@ public class Classe {
     public void addStudente(Studente s)  {
         if (s == null) throw new NullPointerException("Studente non valido");
         studenti.add(s);
-        GestoreFile.addStudentToClass(this, s);
     }
     
     public void addAttivita (Attivita a) {

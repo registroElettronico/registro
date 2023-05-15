@@ -5,6 +5,7 @@ import controller.GestoreRegistro;
 import controllerFile.GestoreFile;
 import models.tools.Data;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -46,14 +47,10 @@ public class Insegnante extends Persona{
         s.addRapporto(n);
     }
 
-    public void addClasse(Classe c) {
+    public void addClasse(Classe c) throws IOException {
         if (c == null) throw new NullPointerException("Classe non valida");
-        try {
-            Classe cl = GestoreFile.getClasse(c.getSezione());
 
-        } catch (NullPointerException ex) {
-            GestoreFile.addClasse(c);
-        }
+        c = GestoreFile.addClasse(c);
 
         this.classi.add(c);
         c.addInsegnante(this);

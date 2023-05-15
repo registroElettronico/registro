@@ -3,6 +3,7 @@ package controllerFile;
 import models.*;
 import models.tools.Data;
 
+import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class GestoreFile {
                     Classe c;
                     try {
                         c = getClasse(info[7]);
-                    }catch (NullPointerException ex){
+                    }catch (InstanceNotFoundException ex){
                         c = new Classe(info[7]);
                     }
 
@@ -56,7 +57,7 @@ public class GestoreFile {
                     insegnante = getInsegnante(info[i]);
                     insegnante.addClasse(classe);
                     classe.addInsegnante(insegnante);
-                } catch (NullPointerException ex) {
+                } catch (InstanceNotFoundException ex) {
                     System.out.println(ex.getMessage());
                 }
                 i++;
@@ -67,7 +68,7 @@ public class GestoreFile {
                 try {
                     Studente studente = getStudente(info[i]);
                     classe.addStudente(studente);
-                }catch (NullPointerException ex) {
+                }catch (InstanceNotFoundException ex) {
                     System.out.println(ex.getMessage());
                 }
                 i++;
@@ -150,17 +151,59 @@ public class GestoreFile {
         bw.close();
     }
 
-    public static void addClasse(Classe c) {
-        classi.add(c);
+    public static Classe addClasse(Classe c) throws IOException {
+        Classe classe;
+        try{
+            classe = getClasse(c.getSezione());     //controlla se la classe non è già presente
+        }catch (InstanceNotFoundException exception) {  //se non è presente la aggiunge al file e alla lista
+            classe = c;
+            classi.add(c);
 
-        //                                                          SCRIVI SU FILE QUA
+            //legge il file delle classi
+            BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
+            String lineContent;
+            String content = "";
+
+            while((lineContent = br.readLine()) != null) {
+                content += lineContent + "\n";
+            }
+            br.close();
+
+            content += (c.getSezione() + ",|");
+
+            //scrive sul file delle classi
+            BufferedWriter bw = new BufferedWriter(new FileWriter("classi.csv"));
+            bw.write(content);
+            bw.close();
+        }
+
+        return classe;  //restituisce la classe aggiunta
     }
 
-    public static void addTeacherToClass(Classe classe, Insegnante i) {
+    public static void addTeacherToClass(Classe classe, Insegnante i) throws IOException {
+        //legge il file delle classi
+b                                                                                                                           //DA FINIRE, TESTA AGGIUNTA DI UNA CLASSE
+        BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
+        String lineContent;
+        String content = "";
+
+        while((lineContent = br.readLine()) != null) {
+
+            if (lineContent.split(",")[0].equals(classe.getSezione())){
+                boolean exists = lineContent.contains(i.getEmail());
+                if (!exists) lineContent = lineContent.substring(0, 3) + i.getEmail() + "," + lineContent.substring(3);
+            }
+
+            content += lineContent + "\n";
+        }
+        br.close();
+
+        //scrive sul file delle classi
+        BufferedWriter bw = new BufferedWriter(new FileWriter("classi.csv"));
+        bw.write(content);
+        bw.close();
     }
 
-    public static void addStudentToClass(Classe classe, Studente s) {
-    }
 
     public static ArrayList<Insegnante> getInsegnanti() {
         return insegnanti;
@@ -174,24 +217,24 @@ public class GestoreFile {
         return classi;
     }
 
-    private static Insegnante getInsegnante(String email) {
+    private static Insegnante getInsegnante(String email) throws InstanceNotFoundException {
         for (Insegnante i: insegnanti){
             if (i.getEmail().equals(email)) return i;
         }
-        throw new NullPointerException("L'INSEGNANTE NON ESISTE");
+        throw new InstanceNotFoundException("L'INSEGNANTE NON ESISTE");
     }
 
-    private static Studente getStudente(String email) {
+    private static Studente getStudente(String email) throws InstanceNotFoundException {
         for (Studente s: studenti){
             if (s.getEmail().equals(email)) return s;
         }
-        throw new NullPointerException("LO STUDENTE NON ESISTE");
+        throw new InstanceNotFoundException("LO STUDENTE NON ESISTE");
     }
 
-    public static Classe getClasse(String sezione) {
+    public static Classe getClasse(String sezione) throws InstanceNotFoundException {
         for (Classe c: classi){
             if (c.getSezione().equals(sezione)) return c;
         }
-        throw new NullPointerException("LA CLASSE NON ESISTE");
+        throw new InstanceNotFoundException("LA CLASSE NON ESISTE");
     }
 }

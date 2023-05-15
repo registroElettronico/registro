@@ -1,9 +1,11 @@
 package view;
 
 import controller.GestoreRegistro;
+import controllerFile.GestoreFile;
 import models.*;
 import models.tools.Data;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
 import java.util.Scanner;
 
@@ -75,6 +77,7 @@ public class Main {
                     System.out.println("4. Aggiungi lezione;");
                     System.out.println("5. Aggiungi assenza;");
                     System.out.println("6. Aggiungi rapporto;");
+                    System.out.println("7. Aggiungi una classe;");
 
                     opzione = scan.nextInt();
                     scan.nextLine();
@@ -150,13 +153,19 @@ public class Main {
                             ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
                         }
                         case 4 -> {
+
                         }
                         case 5 -> {
                         }
                         case 6 -> {
                         }
-                        default -> {
+                        case 7 -> {
+                            System.out.println("Sezione: ");
+                            String sezione = scan.nextLine();
+
+                            ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
                         }
+                        default -> {}
                     }
                 }
             } while(opzione != 0);
