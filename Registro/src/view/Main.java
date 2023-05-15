@@ -125,7 +125,7 @@ public class Main {
                             String data = scan.nextLine();
 
 
-                            ((Insegnante) gest.getUser()).addVoto(student, new Voto(voto, materia, new Data(data)));
+                            ((Insegnante) gest.getUser()).addVoto(student, new Voto(voto, materia, new Data(data), student));
                         }
                         case 3 -> {
                             System.out.println("Classe: ");

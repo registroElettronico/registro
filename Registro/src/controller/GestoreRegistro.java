@@ -51,7 +51,7 @@ public class GestoreRegistro {
         studenti.add(i);
     }
 
-    public boolean login (String email, String password) throws IOException {
+    public boolean login (String email, String password) {
         boolean okLogin = false;
         for (Studente s: this.studenti) {
             if (s.getEmail().equals(email) && s.getPassword().equals(password)) {
@@ -74,60 +74,21 @@ public class GestoreRegistro {
     public boolean register(String email, String password, String tipologia, String nome, String cognome, String date, char genere, String classe) throws IOException {
         boolean okSignup = false;
 
-        BufferedReader br = new BufferedReader(new FileReader("users.csv"));
-
-        //si salvano gli utenti già presenti nel file
-        String lineContent;
-        String content = "";
-
-        while ((lineContent = br.readLine()) != null) {
-            content += (lineContent + "\n");
-        }
-
-        br.close();
-
         switch (tipologia) {
             case "Studente" -> {
-                content += email + "," + password + "," + tipologia + "," + nome + "," + cognome + "," + date + "," + genere + "," + classe;
-
                 Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
                 this.addStudente(s);    //aggiunge lo studente alla lista
                 s.getClasse().addStudente(s);   //aggiunge la classe allo studente
-
-
-                //aggiungo l'utente al file delle classi
-                BufferedReader readerClassi = new BufferedReader(new FileReader("classi.csv"));
-                String lineContentClassi;
-                String contentClassi = "";
-
-                while ((lineContentClassi = readerClassi.readLine()) != null) {
-                    contentClassi += lineContentClassi;
-
-                    if (lineContentClassi.split(",")[0].equals(s.getClasse().getSezione())) contentClassi += ("," + s.getEmail());
-
-                   contentClassi += "\n";
-                }
-                readerClassi.close();
-
-                BufferedWriter writerClassi = new BufferedWriter(new FileWriter("classi.csv"));
-                writerClassi.write(contentClassi);
-                writerClassi.close();
-
+                GestoreFile.addPersona(s);
                 okSignup = true;
             }
             case "Insegnante" -> {
-                content += email + "," + password + "," + tipologia + "," + nome + "," + cognome + "," + date + "," + genere;
-
-                this.addInsegnante(new Insegnante(email, password, nome, cognome, new Data(date), genere)); //aggiunge l'insegnante alla lista
-
+                Insegnante i = new Insegnante(email, password, nome, cognome, new Data(date), genere); //aggiunge l'insegnante alla lista
+                this.addInsegnante(i);
+                GestoreFile.addPersona(i);
                 okSignup = true;
             }
         }
-
-        BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));    //si riscrive il file con anche il nuovo utente
-        bw.write(content);
-
-        bw.close();
 
         return okSignup;
     }

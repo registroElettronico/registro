@@ -2,6 +2,7 @@
 package models;
 
 import controller.GestoreRegistro;
+import controllerFile.GestoreFile;
 import models.tools.Data;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class Insegnante extends Persona{
 
     public void addVoto(Studente s, Voto val) throws IOException {
         s.addVoto(val);
+        GestoreFile.addVoto(val);
     }
 
     public void addComunicazione(Comunicazione com) {
@@ -46,6 +48,14 @@ public class Insegnante extends Persona{
 
     public void addClasse(Classe c) {
         if (c == null) throw new NullPointerException("Classe non valida");
+        try {
+            Classe cl = GestoreFile.getClasse(c.getSezione());
+
+        } catch (NullPointerException ex) {
+            GestoreFile.addClasse(c);
+        }
+
         this.classi.add(c);
+        c.addInsegnante(this);
     }
 }
