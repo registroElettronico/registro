@@ -1,6 +1,8 @@
 
 package models;
 
+import controllerFile.GestoreFile;
+
 import java.io.*;
 import java.util.ArrayList;
 public class Classe {
@@ -26,11 +28,13 @@ public class Classe {
     public void addInsegnante(Insegnante i) {
         if (i == null) throw new NullPointerException("Insegnante non valido");
         insegnanti.add(i);
+        GestoreFile.addTeacherToClass(this, i);
     }
     
     public void addStudente(Studente s)  {
         if (s == null) throw new NullPointerException("Studente non valido");
         studenti.add(s);
+        GestoreFile.addStudentToClass(this, s);
     }
     
     public void addAttivita (Attivita a) {

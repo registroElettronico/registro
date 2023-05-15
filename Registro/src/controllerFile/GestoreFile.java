@@ -1,13 +1,9 @@
 package controllerFile;
 
-import models.Classe;
-import models.Insegnante;
-import models.Studente;
+import models.*;
 import models.tools.Data;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class GestoreFile {
@@ -81,6 +77,91 @@ public class GestoreFile {
         bufferedReaderClasse.close();
     }
 
+    public static void addPersona(Persona p) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("users.csv"));
+
+        //si salvano gli utenti già presenti nel file
+        String lineContent;
+        String content = "";
+
+        while ((lineContent = br.readLine()) != null) {
+            content += (lineContent + "\n");
+        }
+
+        br.close();
+
+        if (p instanceof Studente) {
+            String tipologia = "Studente";
+            content += p.getEmail() + "," + p.getPassword() + "," + tipologia + "," + p.getNome() + "," + p.getCognome() + "," + p.getDataDiNascita() + "," + p.getGenere() + "," + ((Studente) p).getClasse();
+
+            //aggiungo l'utente al file delle classi
+            BufferedReader readerClassi = new BufferedReader(new FileReader("classi.csv"));
+            String lineContentClassi;
+            String contentClassi = "";
+
+            while ((lineContentClassi = readerClassi.readLine()) != null) {
+                contentClassi += lineContentClassi;
+
+                if (lineContentClassi.split(",")[0].equals(((Studente) p).getClasse().getSezione())) contentClassi += ("," + p.getEmail());
+
+                contentClassi += "\n";
+            }
+            readerClassi.close();
+
+            BufferedWriter writerClassi = new BufferedWriter(new FileWriter("classi.csv"));
+            writerClassi.write(contentClassi);
+            writerClassi.close();
+        }
+        else if (p instanceof Insegnante) {
+            String tipologia = "Insegnante";
+            content += p.getEmail() + "," + p.getPassword() + "," + tipologia + "," + p.getNome() + "," + p.getCognome() + "," + p.getDataDiNascita() + "," + p.getGenere();
+        }
+
+        //aggiunge l'utente al file degli utenti
+        BufferedWriter bw = new BufferedWriter(new FileWriter("users.csv"));    //si riscrive il file con anche il nuovo utente
+        bw.write(content);
+
+        bw.close();
+    }
+
+    public static void addVoto(Voto val) throws IOException {
+        //scrive il voto sul file dei voti
+        BufferedReader br = new BufferedReader(new FileReader("student/votes.csv"));
+
+        boolean giaPresente = false;
+        String lineContent;
+        String content = "";
+
+        while ((lineContent = br.readLine()) != null) {
+            content += lineContent;
+
+            if (lineContent.split(",")[0].equals(val.getStudente().getEmail())) {
+                giaPresente = true;
+                content += ("," + val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
+            }
+
+            content += "\n";
+        }
+        br.close();
+        if (!giaPresente) content += (val.getStudente().getEmail()+","+val.getVoto()+"|"+val.getMateria()+"|"+val.getData());
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("student/votes.csv"));
+        bw.write(content);
+        bw.close();
+    }
+
+    public static void addClasse(Classe c) {
+        classi.add(c);
+
+        //                                                          SCRIVI SU FILE QUA
+    }
+
+    public static void addTeacherToClass(Classe classe, Insegnante i) {
+    }
+
+    public static void addStudentToClass(Classe classe, Studente s) {
+    }
+
     public static ArrayList<Insegnante> getInsegnanti() {
         return insegnanti;
     }
@@ -107,7 +188,7 @@ public class GestoreFile {
         throw new NullPointerException("LO STUDENTE NON ESISTE");
     }
 
-    private static Classe getClasse(String sezione) {
+    public static Classe getClasse(String sezione) {
         for (Classe c: classi){
             if (c.getSezione().equals(sezione)) return c;
         }
