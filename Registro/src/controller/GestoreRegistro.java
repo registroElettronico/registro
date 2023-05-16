@@ -7,6 +7,8 @@ import controllerFile.GestoreFile;
 import models.*;
 import models.tools.Data;
 
+import javax.management.InstanceNotFoundException;
+
 public class GestoreRegistro {
     private ArrayList<Insegnante> insegnanti;
     private ArrayList<Studente> studenti;
@@ -34,7 +36,7 @@ public class GestoreRegistro {
         return null;
     }
 
-    public GestoreRegistro() throws IOException {
+    public GestoreRegistro() throws IOException, InstanceNotFoundException {
         GestoreFile.load();
         this.classi = GestoreFile.getClassi();
         this.studenti = GestoreFile.getStudenti();

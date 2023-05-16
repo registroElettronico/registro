@@ -11,7 +11,8 @@ public class GestoreFile {
     private static final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private static final ArrayList<Studente> studenti = new ArrayList<>();
     private static final ArrayList<Classe> classi = new ArrayList<>();
-    public static void load() throws IOException {
+    public static void load() throws IOException, InstanceNotFoundException {
+
         BufferedReader bufferedReaderUsers = new BufferedReader(new FileReader("users.csv"));
         bufferedReaderUsers.readLine();
 
@@ -23,10 +24,9 @@ public class GestoreFile {
 
             switch (info[2]) {
                 case "Studente" -> {
-                    Classe c;
-                    try {
-                        c = getClasse(info[7]);
-                    }catch (InstanceNotFoundException ex){
+                    Classe c = getClasse(info[7]);
+
+                    if (c == null){
                         c = new Classe(info[7]);
                     }
 
@@ -42,37 +42,40 @@ public class GestoreFile {
 
         bufferedReaderUsers.close();
 
+
         //inserisce le informazioni delle classi negli utenti e nella lista di classi
         BufferedReader bufferedReaderClasse = new BufferedReader(new FileReader("classi.csv"));
         bufferedReaderClasse.readLine();
 
         while((line = bufferedReaderClasse.readLine()) != null) {
             String[] info = line.split(",");
-            Classe classe = new Classe(info[0]);
+            Classe classe = getClasse(info[0]);
+            if (classe == null) {
+                classe = new Classe(info[0]);
+                classi.add(classe);
+            }
 
             int i = 1;
+
             while (!info[i].equals("|")) {
-                Insegnante insegnante;
-                try {
-                    insegnante = getInsegnante(info[i]);
-                    insegnante.addClasse(classe);
-                    classe.addInsegnante(insegnante);
-                } catch (InstanceNotFoundException ex) {
-                    System.out.println(ex.getMessage());
-                }
+
+                Insegnante insegnante = getInsegnante(info[i]);
+                if (insegnante == null) throw new InstanceNotFoundException("INSEGNANTE NON PRESENTE IN 'users.csv'");
+                insegnante.addClasse(classe);
+                classe.addInsegnante(insegnante);
+
                 i++;
             }
 
             i++;
             while (i < info.length) {
-                try {
-                    Studente studente = getStudente(info[i]);
-                    classe.addStudente(studente);
-                }catch (InstanceNotFoundException ex) {
-                    System.out.println(ex.getMessage());
-                }
+
+                Studente studente = getStudente(info[i]);
+                if (studente == null) throw new InstanceNotFoundException("STUDENTE NON PRESENTE IN 'users.csv'");
+                classe.addStudente(studente);
                 i++;
             }
+
         }
 
         bufferedReaderClasse.close();
@@ -93,7 +96,7 @@ public class GestoreFile {
 
         if (p instanceof Studente) {
             String tipologia = "Studente";
-            content += p.getEmail() + "," + p.getPassword() + "," + tipologia + "," + p.getNome() + "," + p.getCognome() + "," + p.getDataDiNascita() + "," + p.getGenere() + "," + ((Studente) p).getClasse();
+            content += p.getEmail() + "," + p.getPassword() + "," + tipologia + "," + p.getNome() + "," + p.getCognome() + "," + p.getDataDiNascita() + "," + p.getGenere() + "," + ((Studente) p).getClasse().getSezione();
 
             //aggiungo l'utente al file delle classi
             BufferedReader readerClassi = new BufferedReader(new FileReader("classi.csv"));
@@ -151,13 +154,12 @@ public class GestoreFile {
         bw.close();
     }
 
-    public static Classe addClasse(Classe c) throws IOException {
-        Classe classe;
-        try{
-            classe = getClasse(c.getSezione());     //controlla se la classe non è già presente
-        }catch (InstanceNotFoundException exception) {  //se non è presente la aggiunge al file e alla lista
+    public static Classe addClasse(Classe c) throws IOException{
+        Classe classe = getClasse(c.getSezione());
+        if (classe == null) {   //controlla se la classe non è già presente
+            //se non è presente la aggiunge al file e alla lista
             classe = c;
-            classi.add(c);
+            classi.add(classe);
 
             //legge il file delle classi
             BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
@@ -169,7 +171,7 @@ public class GestoreFile {
             }
             br.close();
 
-            content += (c.getSezione() + ",|");
+            content += (c.getSezione() + ",|\n");
 
             //scrive sul file delle classi
             BufferedWriter bw = new BufferedWriter(new FileWriter("classi.csv"));
@@ -182,7 +184,7 @@ public class GestoreFile {
 
     public static void addTeacherToClass(Classe classe, Insegnante i) throws IOException {
         //legge il file delle classi
-b                                                                                                                           //DA FINIRE, TESTA AGGIUNTA DI UNA CLASSE
+
         BufferedReader br = new BufferedReader(new FileReader("classi.csv"));
         String lineContent;
         String content = "";
@@ -217,24 +219,24 @@ b                                                                               
         return classi;
     }
 
-    private static Insegnante getInsegnante(String email) throws InstanceNotFoundException {
+    private static Insegnante getInsegnante(String email) {
         for (Insegnante i: insegnanti){
             if (i.getEmail().equals(email)) return i;
         }
-        throw new InstanceNotFoundException("L'INSEGNANTE NON ESISTE");
+        return null;
     }
 
-    private static Studente getStudente(String email) throws InstanceNotFoundException {
+    private static Studente getStudente(String email) {
         for (Studente s: studenti){
             if (s.getEmail().equals(email)) return s;
         }
-        throw new InstanceNotFoundException("LO STUDENTE NON ESISTE");
+        return null;
     }
 
-    public static Classe getClasse(String sezione) throws InstanceNotFoundException {
+    public static Classe getClasse(String sezione) {
         for (Classe c: classi){
             if (c.getSezione().equals(sezione)) return c;
         }
-        throw new InstanceNotFoundException("LA CLASSE NON ESISTE");
+        return null;
     }
 }

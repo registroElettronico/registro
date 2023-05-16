@@ -6,6 +6,8 @@
 package view;
 
 import controller.GestoreRegistro;
+
+import javax.management.InstanceNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -231,14 +233,11 @@ public class SigInsegnante extends javax.swing.JFrame {
             }
                 
             
-        } catch (IOException ex) {
+        } catch (IOException | InstanceNotFoundException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import models.Insegnante;
 import models.Studente;
 
+import javax.management.InstanceNotFoundException;
+
 /**
  *
  * @author saccanif
@@ -152,12 +154,11 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);// apriamo altra scheda
             }
             
-        } catch (IOException ex) {
+        } catch (IOException | InstanceNotFoundException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

@@ -6,11 +6,12 @@ import models.*;
 import models.tools.Data;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InstanceNotFoundException {
         GestoreRegistro gest = new GestoreRegistro();
         Scanner scan = new Scanner(System.in);
 

@@ -6,6 +6,8 @@
 package view;
 
 import controller.GestoreRegistro;
+
+import javax.management.InstanceNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,10 +253,10 @@ public class SigStudente extends javax.swing.JFrame {
                 log.setVisible(true);
                 this.setVisible(false);
             }
-        } catch (IOException ex) {
+        } catch (IOException | InstanceNotFoundException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
