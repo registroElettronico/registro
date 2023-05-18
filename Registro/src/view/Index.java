@@ -5,17 +5,22 @@
  */
 package view;
 
+import controller.GestoreRegistro;
+import java.io.IOException;
+import javax.management.InstanceNotFoundException;
+
 /**
  *
  * @author saccanif
  */
 public class Index extends javax.swing.JFrame {
-
+    GestoreRegistro gest;
     /**
      * Creates new form Index
      */
-    public Index() {
+    public Index() throws IOException, InstanceNotFoundException {
         initComponents();
+        gest = new GestoreRegistro();
     }
 
     /**
@@ -81,9 +86,10 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Signup sig = new Signup();
+        Signup sig = new Signup(gest);
         sig.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

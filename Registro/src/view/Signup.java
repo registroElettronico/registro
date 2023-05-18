@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.GestoreRegistro;
+
 /**
  *
  * @author dential
@@ -14,8 +16,9 @@ public class Signup extends javax.swing.JFrame {
     /**
      * Creates new form Signup
      */
-    public Signup() {
+    public Signup(GestoreRegistro gest) {
         initComponents();
+        
     }
 
     /**
@@ -115,7 +118,7 @@ public class Signup extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Signup().setVisible(true);
+                
             }
         });
     }
