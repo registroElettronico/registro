@@ -36,6 +36,16 @@ public class GestoreRegistro {
         return null;
     }
 
+    public Studente getStudente(String email) {
+        for (Studente s: this.studenti) if (s.getEmail().equals(email)) return s;
+        return null;
+    }
+
+    public Insegnante getInsegnante(String email) {
+        for (Insegnante i: this.insegnanti) if (i.getEmail().equals(email)) return i;
+        return null;
+    }
+
     public GestoreRegistro() throws IOException, InstanceNotFoundException {
         GestoreFile.load();
         this.classi = GestoreFile.getClassi();

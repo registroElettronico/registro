@@ -9,20 +9,19 @@ import controller.GestoreRegistro;
 
 import javax.management.InstanceNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author dential
  */
-public class SigStudente extends javax.swing.JFrame {
+public class SigStudente extends Pagina {
 
     /**
      * Creates new form SigStudente
      */
-    public SigStudente() {
+    public SigStudente(GestoreRegistro gestoreRegistro) {
         initComponents();
+        this.gestoreRegistro = gestoreRegistro;
     }
 
     /**
@@ -230,9 +229,7 @@ public class SigStudente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
         try {
-            GestoreRegistro gest = new GestoreRegistro();
             String nome = this.jTextField1.getText();
             String cognome = this.jTextField2.getText();
             String email = this.jTextField3.getText();
@@ -241,7 +238,7 @@ public class SigStudente extends javax.swing.JFrame {
             char genere = this.jTextField6.getText().charAt(0);
             String classe = this.jTextField7.getText();
             
-            boolean okSignup = gest.register(email, password, "Studente", nome, cognome, date, genere, classe);
+            boolean okSignup = gestoreRegistro.register(email, password, "Studente", nome, cognome, date, genere, classe);
             
             System.out.println("okSignup = " + okSignup);
             
@@ -249,50 +246,15 @@ public class SigStudente extends javax.swing.JFrame {
                 this.jLabel8.setText("Registrazione non avvenuta");
             }
             else{
-                Login log = new Login();
+                Login log = new Login(gestoreRegistro);
                 log.setVisible(true);
                 this.setVisible(false);
             }
-        } catch (IOException | InstanceNotFoundException ex) {
+        } catch (IOException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SigStudente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SigStudente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SigStudente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SigStudente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SigStudente().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

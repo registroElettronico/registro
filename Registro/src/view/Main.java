@@ -1,11 +1,9 @@
 package view;
 
 import controller.GestoreRegistro;
-import controllerFile.GestoreFile;
 import models.*;
 import models.tools.Data;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.util.Scanner;
@@ -93,12 +91,30 @@ public class Main {
                             }
                         }
                         case 2 -> {
-                            System.out.println("Scegli lo studente: ");
+                            System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
-                                for (Studente s : c.getStudenti()) {
-                                    System.out.println(s.getClasse().getSezione() + "| " + s.getNome() + " " + s.getCognome());
+                                System.out.println(c.getSezione());
+                            }
+
+                            String sezione = scan.nextLine();
+                            Classe classe = gest.getClasse(sezione);
+
+                            while(classe == null) {
+                                System.out.println("Classe non valida. Scegli la classe: ");
+
+                                for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
+                                    System.out.println(c.getSezione());
                                 }
+
+                                sezione = scan.nextLine();
+                                classe = gest.getClasse(sezione);
+                            }
+
+                            System.out.println("Scegli lo studente: ");
+
+                            for (Studente s: classe.getStudenti()) {
+                                System.out.println(s.getNome() + " " + s.getCognome());
                             }
 
                             System.out.println("Nome: ");
@@ -107,29 +123,37 @@ public class Main {
                             System.out.println("Cognome: ");
                             String cognome = scan.nextLine();
 
-                            Studente student = null;
+                            Studente studente = classe.getStudente(nome, cognome);
 
-                            for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
-                                for (Studente s : c.getStudenti()) {
-                                    if (s.getNome().equals(nome) && s.getCognome().equals(cognome)) student = s;
+                            while(studente == null) {
+                                System.out.println("Studente non valido. Scegli lo studente: ");
+
+                                for (Studente s: classe.getStudenti()) {
+                                    System.out.println(s.getNome() + " " + s.getCognome());
                                 }
-                            }
 
-                            if (student == null) {
-                                System.out.println("SCELTA NON VALIDA");
-                                break;
+                                System.out.println("Nome: ");
+                                nome = scan.nextLine();
+
+                                System.out.println("Cognome: ");
+                                cognome = scan.nextLine();
+
+                                studente = classe.getStudente(nome, cognome);
                             }
 
                             System.out.println("Materia: ");
                             String materia = scan.nextLine();
+
                             System.out.println("Voto: ");
                             float voto = scan.nextFloat();
-                            scan.nextLine();
+
+                            scan.nextLine();    //serve a togliere il carattere che va a capo
+
                             System.out.println("Data (yyyy/mm/gg): ");
                             String data = scan.nextLine();
 
 
-                            ((Insegnante) gest.getUser()).addVoto(student, new Voto(voto, materia, new Data(data), student));
+                            ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
                         }
                         case 3 -> {
                             System.out.println("Classe: ");
@@ -154,11 +178,70 @@ public class Main {
                             ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
                         }
                         case 4 -> {
-
+                            System.out.println("NON FINITO");
                         }
                         case 5 -> {
+                            System.out.println("NON FINITO");
                         }
                         case 6 -> {
+                            System.out.println("Scegli la classe: ");
+
+                            for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
+                                System.out.println(c.getSezione());
+                            }
+
+                            String sezione = scan.nextLine();
+                            Classe classe = gest.getClasse(sezione);
+
+                            while(classe == null) {
+                                System.out.println("Classe non valida. Scegli la classe: ");
+
+                                for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
+                                    System.out.println(c.getSezione());
+                                }
+
+                                sezione = scan.nextLine();
+                                classe = gest.getClasse(sezione);
+                            }
+
+                            System.out.println("Scegli lo studente: ");
+
+                            for (Studente s: classe.getStudenti()) {
+                                System.out.println(s.getNome() + " " + s.getCognome());
+                            }
+
+                            System.out.println("Nome: ");
+                            String nome = scan.nextLine();
+
+                            System.out.println("Cognome: ");
+                            String cognome = scan.nextLine();
+
+                            Studente studente = classe.getStudente(nome, cognome);
+
+                            while(studente == null) {
+                                System.out.println("Studente non valido. Scegli lo studente: ");
+
+                                for (Studente s: classe.getStudenti()) {
+                                    System.out.println(s.getNome() + " " + s.getCognome());
+                                }
+
+                                System.out.println("Nome: ");
+                                nome = scan.nextLine();
+
+                                System.out.println("Cognome: ");
+                                cognome = scan.nextLine();
+
+                                studente = classe.getStudente(nome, cognome);
+                            }
+
+                            System.out.println("Motivo: ");
+                            String motivo = scan.nextLine();
+
+                            System.out.println("Data (yyyy/mm/gg): ");
+                            String data = scan.nextLine();
+
+
+                            ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
                         }
                         case 7 -> {
                             System.out.println("Sezione: ");

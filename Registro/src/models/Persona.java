@@ -3,7 +3,7 @@ package models;
 import models.tools.Data;
 
 
-public abstract class Persona {
+public abstract class Persona implements Comparable{
     private final String nome;
     private final String cognome;
     private final char genere;
@@ -60,5 +60,11 @@ public abstract class Persona {
 
     public String getFoto() {
         return foto;
+    }
+
+    @Override
+    public int compareTo(Object other) {
+        Studente studente = (Studente) other;
+        return (this.cognome + this.nome).compareTo((studente.getCognome() + studente.getNome()));
     }
 }

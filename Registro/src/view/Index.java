@@ -7,20 +7,25 @@ package view;
 
 import controller.GestoreRegistro;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.management.InstanceNotFoundException;
 
 /**
  *
  * @author saccanif
  */
-public class Index extends javax.swing.JFrame {
-    GestoreRegistro gest;
+public class Index extends Pagina {
     /**
      * Creates new form Index
      */
     public Index() throws IOException, InstanceNotFoundException {
         initComponents();
-        gest = new GestoreRegistro();
+        gestoreRegistro = new GestoreRegistro();
+    }
+
+    public Index(GestoreRegistro g) {
+        initComponents();
+        gestoreRegistro = g;
     }
 
     /**
@@ -86,14 +91,14 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Signup sig = new Signup(gest);
+        Signup sig = new Signup(gestoreRegistro);
         sig.setVisible(true);
         this.setVisible(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Login log = new Login();
+        Login log = new Login(gestoreRegistro);
         log.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -128,7 +133,11 @@ public class Index extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Index().setVisible(true);
+                try {
+                    new Index().setVisible(true);
+                } catch (IOException | InstanceNotFoundException e) {
+                    Logger.getLogger(e.getMessage());
+                }
             }
         });
     }

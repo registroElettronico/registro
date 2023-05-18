@@ -54,4 +54,9 @@ public class Classe {
     public String getSezione() {
         return sezione;
     }
+
+    public Studente getStudente(String nome, String cognome){
+        for (Studente s: this.studenti) if (s.getNome().equals(nome) && s.getCognome().equals(cognome)) return s;
+        return null;
+    }
 }

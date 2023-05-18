@@ -20,8 +20,8 @@ public class Insegnante extends Persona{
         return classi;
     }
 
-    public void addVoto(Studente s, Voto val) throws IOException {
-        s.addVoto(val);
+    public void addVoto(Voto val) throws IOException {
+        val.getStudente().addVoto(val);
         GestoreFile.addVoto(val);
     }
 
@@ -43,8 +43,9 @@ public class Insegnante extends Persona{
         s.addAssenza();
     }
 
-    public void addRapporto(Studente s, Nota n) {
-        s.addRapporto(n);
+    public void addRapporto(Rapporto r) throws IOException {
+        r.getStudente().addRapporto(r);
+        GestoreFile.addRapporto(r);
     }
 
     public void addClasse(Classe c) throws IOException {

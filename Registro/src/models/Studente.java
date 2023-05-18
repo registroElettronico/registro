@@ -1,11 +1,9 @@
 package models;
 
-import controllerFile.GestoreFile;
 import models.tools.Data;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 /**
  *
@@ -15,7 +13,7 @@ public class Studente extends Persona{
     Classe classe;
     private final ArrayList<Voto> voti = new ArrayList<>();
     private final ArrayList<Boolean> assenze = new ArrayList<>();
-    private final ArrayList<Nota> note = new ArrayList<>();
+    private final ArrayList<Rapporto> note = new ArrayList<>();
     public Pagella pagella;
 
     public Studente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere, Classe classe) throws IOException {
@@ -36,7 +34,7 @@ public class Studente extends Persona{
         this.assenze.add(false);
     }
 
-    public void addRapporto(Nota n){
+    public void addRapporto(Rapporto n){
         if (n == null) throw new NullPointerException("NOTA non valida");
         this.note.add(n);
     }

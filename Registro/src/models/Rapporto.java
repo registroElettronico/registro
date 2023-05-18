@@ -2,11 +2,13 @@ package models;
 
 import models.tools.Data;
 
-public class Nota {
+public class Rapporto {
     private final Insegnante insegnante;
+    private final Studente studente;
 
-    public Nota(Insegnante insegnante, String motivo, Data data) {
+    public Rapporto(Insegnante insegnante, Studente studente, String motivo, Data data) {
         this.insegnante = insegnante;
+        this.studente = studente;
         this.motivo = motivo;
         this.data = data;
     }
@@ -24,5 +26,9 @@ public class Nota {
 
     public Data getData() {
         return data;
+    }
+
+    public Studente getStudente() {
+        return studente;
     }
 }

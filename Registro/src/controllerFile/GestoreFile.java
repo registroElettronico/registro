@@ -206,6 +206,31 @@ public class GestoreFile {
         bw.close();
     }
 
+    public static void addRapporto(Rapporto rapporto) throws IOException {
+        //scrive il voto sul file dei voti
+        BufferedReader br = new BufferedReader(new FileReader("student/notes.csv"));
+
+        boolean giaPresente = false;
+        String lineContent;
+        String content = "";
+
+        while ((lineContent = br.readLine()) != null) {
+            content += lineContent;
+
+            if (lineContent.split(",")[0].equals(rapporto.getStudente().getEmail())) {
+                giaPresente = true;
+                content += ("," + rapporto.getInsegnante().getEmail() + "|" + rapporto.getMotivo() + "|" + rapporto.getData());
+            }
+
+            content += "\n";
+        }
+        br.close();
+        if (!giaPresente) content += (rapporto.getStudente().getEmail()+","+rapporto.getInsegnante().getEmail()+"|"+rapporto.getMotivo()+"|"+rapporto.getData());
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("student/notes.csv"));
+        bw.write(content);
+        bw.close();
+    }
 
     public static ArrayList<Insegnante> getInsegnanti() {
         return insegnanti;
@@ -239,4 +264,6 @@ public class GestoreFile {
         }
         return null;
     }
+
+
 }
