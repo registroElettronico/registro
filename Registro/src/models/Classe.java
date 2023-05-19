@@ -61,4 +61,10 @@ public class Classe {
         for (Studente s: this.studenti) if (s.getNome().equals(nome) && s.getCognome().equals(cognome)) return s;
         return null;
     }
+
+    public ArrayList<Attivita> getAttivita() {
+        return attivita;
+    }
+    
+    
 }
