@@ -64,7 +64,6 @@ public class AggVoti extends Pagina {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
@@ -73,6 +72,7 @@ public class AggVoti extends Pagina {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        choice3 = new java.awt.Choice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,12 +87,6 @@ public class AggVoti extends Pagina {
         });
 
         jLabel5.setText("Materia");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Indietro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,15 +138,14 @@ public class AggVoti extends Pagina {
                                     .addGap(50, 50, 50)
                                     .addComponent(jLabel6)))
                             .addGap(67, 67, 67)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(choice2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                                .addComponent(jLabel4)))))
+                                .addComponent(choice2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                .addComponent(jTextField4)
+                                .addComponent(jLabel4)
+                                .addComponent(choice3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,10 +167,10 @@ public class AggVoti extends Pagina {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(choice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,10 +184,6 @@ public class AggVoti extends Pagina {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RegistroInsegnante reg = new RegistroInsegnante(gestoreRegistro);
@@ -211,9 +200,22 @@ public class AggVoti extends Pagina {
         Classe classe = gestoreRegistro.getClasse(choice1.getSelectedItem());
 
         Studente studente = classe.getStudente(nomeCompleto.split(" ")[0], nomeCompleto.split(" ")[1]);
+        
+        choice3.add("Educazione civica");
+        choice3.add("Informatica");
+        choice3.add("Lingua e letteratura italiana");
+        choice3.add("Lingua inglese");
+        choice3.add("Matematica");
+        choice3.add("Organizzazione aziendale");
+        choice3.add("Rc o attività alternative");
+        choice3.add("Scienze motorie e sportive");
+        choice3.add("Sistemi e reti");
+        choice3.add("Tecnologia e progettazione");
+        choice3.add("Telecomunicazioni");
+        choice3.add("Storia");
 
         try {
-            ((Insegnante) gestoreRegistro.getUser()).addVoto(new Voto(Float.parseFloat(jTextField4.getText()), jTextField5.getText(), new Data(jTextField3.getText()), studente));
+            ((Insegnante) gestoreRegistro.getUser()).addVoto(new Voto(Float.parseFloat(jTextField4.getText()), choice3.getSelectedItem(), new Data(jTextField3.getText()), studente));
         } catch (IOException ex) {
             jLabel4.setText(ex.getMessage());
         }
@@ -222,6 +224,7 @@ public class AggVoti extends Pagina {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Choice choice1;
     private java.awt.Choice choice2;
+    private java.awt.Choice choice3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -233,6 +236,5 @@ public class AggVoti extends Pagina {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

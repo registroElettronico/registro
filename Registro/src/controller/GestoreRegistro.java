@@ -87,18 +87,20 @@ public class GestoreRegistro {
         boolean okSignup = false;
 
         switch (tipologia) {
-            case "Studente" -> {
+            case "Studente" : {
                 Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
                 this.addStudente(s);    //aggiunge lo studente alla lista
                 s.getClasse().addStudente(s);   //aggiunge la classe allo studente
                 GestoreFile.addPersona(s);
                 okSignup = true;
+                break;
             }
-            case "Insegnante" -> {
+            case "Insegnante" : {
                 Insegnante i = new Insegnante(email, password, nome, cognome, new Data(date), genere); //aggiunge l'insegnante alla lista
                 this.addInsegnante(i);
                 GestoreFile.addPersona(i);
                 okSignup = true;
+                break;
             }
         }
 

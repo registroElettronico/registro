@@ -23,7 +23,7 @@ public class GestoreFile {
             String[] info = line.split(",");
 
             switch (info[2]) {
-                case "Studente" -> {
+                case "Studente" : {
                     Classe c = getClasse(info[7]);
 
                     if (c == null){
@@ -32,10 +32,12 @@ public class GestoreFile {
 
                     Studente s = new Studente(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0), c);
                     studenti.add(s);    //aggiunge lo studente alla lista
+                    break;
                 }
-                case "Insegnante" -> {
+                case "Insegnante" : {
                     Insegnante i = new Insegnante(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0));
                     insegnanti.add(i);  //aggiunge l'insegnante alla lista
+                    break;
                 }
             }
         }

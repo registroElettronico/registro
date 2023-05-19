@@ -23,15 +23,16 @@ public class Main {
             }
 
             switch (risposta) {
-                case "Login" -> {
+                case "Login" : {
                     System.out.println("Email: ");
                     String email = scan.nextLine();
                     System.out.println("Password: ");
                     String password = scan.nextLine();
 
                     gest.login(email, password);
+                    break;
                 }
-                case "Registrazione" -> {
+                case "Registrazione" : {
                     System.out.println("Studente o Insegnante?");
                     String tipologia = scan.nextLine();
 
@@ -59,6 +60,7 @@ public class Main {
 
                         gest.register(email, password, tipologia, nome, cognome, date, genere, classe);
                     } else gest.register(email, password, tipologia, nome, cognome, date, genere, null);
+                    break;
                 }
             }
 
@@ -82,15 +84,16 @@ public class Main {
                     scan.nextLine();
 
                     switch (opzione) {
-                        case 1 -> {
+                        case 1 : {
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
                                 System.out.println(c.getSezione() + ": ");
                                 for (Studente s : c.getStudenti()) {
                                     System.out.println(s.getNome() + " " + s.getCognome());
                                 }
                             }
+                            break;
                         }
-                        case 2 -> {
+                        case 2 : {
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -154,8 +157,9 @@ public class Main {
 
 
                             ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
+                            break;
                         }
-                        case 3 -> {
+                        case 3 : {
                             System.out.println("Classe: ");
                             String classe = scan.nextLine();
 
@@ -176,14 +180,17 @@ public class Main {
 
 
                             ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
+                            break;
                         }
-                        case 4 -> {
+                        case 4 : {
                             System.out.println("NON FINITO");
+                            break;
                         }
-                        case 5 -> {
+                        case 5 : {
                             System.out.println("NON FINITO");
+                            break;
                         }
-                        case 6 -> {
+                        case 6 : {
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -242,14 +249,16 @@ public class Main {
 
 
                             ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
+                            break;
                         }
-                        case 7 -> {
+                        case 7 : {
                             System.out.println("Sezione: ");
                             String sezione = scan.nextLine();
 
                             ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
+                            break;
                         }
-                        default -> {}
+                        default : {break;}
                     }
                 }
             } while(opzione != 0);
