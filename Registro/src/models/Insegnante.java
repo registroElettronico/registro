@@ -1,11 +1,11 @@
 
 package models;
 
-import controller.GestoreRegistro;
 import controllerFile.GestoreFile;
+import models.removed.Comunicazione;
+import models.removed.Lezione;
 import models.tools.Data;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,27 +20,33 @@ public class Insegnante extends Persona{
         return classi;
     }
 
-    public void addVoto(Voto val) throws IOException {
-        val.getStudente().addVoto(val);
-        GestoreFile.addVoto(val);
+    public void addVoto(Voto v) throws IOException {
+        v.getStudente().addVoto(v);
+        GestoreFile.addVoto(v);
     }
 
+    /*                                                                  NON FINITO
     public void addComunicazione(Comunicazione com) {
         com.getTarget().addComunicazione(com);
     }
+    */
 
-    public void addAttivita (Classe c, Attivita a) {
-        if (c == null) throw new NullPointerException("Classe non valida");
-        c.addAttivita(a);
+    public void addAttivita (Attivita a) throws IOException {
+        if (a == null) throw new NullPointerException("Attività non valida");
+        a.getClasse().addAttivita(a);
+        GestoreFile.addAttivita(a);
     }
 
+    /*                                                                  NON FINITO
     public void addLezione(Classe c, Lezione l) {
         if (c == null) throw new NullPointerException("Classe non valida");
         c.addLezione(l);
     }
+    */
 
-    public void addAssenza(Studente s) {
+    public void addAssenza(Studente s) throws IOException {
         s.addAssenza();
+        GestoreFile.addAssenza(s);
     }
 
     public void addRapporto(Rapporto r) throws IOException {

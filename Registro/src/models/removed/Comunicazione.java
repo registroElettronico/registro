@@ -1,4 +1,7 @@
-package models;
+package models.removed;
+
+import models.Classe;
+import models.Persona;
 
 public class Comunicazione {
     private final Classe target;

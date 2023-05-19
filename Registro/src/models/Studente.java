@@ -5,16 +5,13 @@ import models.tools.Data;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author studente
- */
 public class Studente extends Persona{
     Classe classe;
     private final ArrayList<Voto> voti = new ArrayList<>();
-    private final ArrayList<Boolean> assenze = new ArrayList<>();
-    private final ArrayList<Rapporto> note = new ArrayList<>();
-    public Pagella pagella;
+    private final ArrayList<Rapporto> rapporti = new ArrayList<>();
+
+    private int numeroAssenze = 0;
+    //public Pagella pagella;                                                       NON FATTO
 
     public Studente(String email, String password, String nome, String cognome, Data dataDiNascita, char genere, Classe classe) throws IOException {
         super(email, password, nome, cognome, dataDiNascita, genere);
@@ -25,17 +22,33 @@ public class Studente extends Persona{
         return classe;
     }
 
-    public void addVoto(Voto val) throws IOException {
+    public void addVoto(Voto val) {
         if (val == null) throw new NullPointerException("VOTO non valido");
         this.voti.add(val);
     }
 
     public void addAssenza(){
-        this.assenze.add(false);
+        this.numeroAssenze++;
+    }
+
+    public Float percAssenze() {
+        return ((float)(this.numeroAssenze/240)*100);
     }
 
     public void addRapporto(Rapporto n){
         if (n == null) throw new NullPointerException("NOTA non valida");
-        this.note.add(n);
+        this.rapporti.add(n);
+    }
+
+    public void setAssenze(int assenze) {
+        this.numeroAssenze = assenze;
+    }
+
+    public ArrayList<Voto> getVoti() {
+        return voti;
+    }
+
+    public ArrayList<Rapporto> getRapporti() {
+        return rapporti;
     }
 }

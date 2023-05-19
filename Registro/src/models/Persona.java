@@ -7,11 +7,9 @@ public abstract class Persona implements Comparable{
     private final String nome;
     private final String cognome;
     private final char genere;
-    private Data dataDiNascita;
-    private String email;
-    private String password;
-    private String indirizzo;
-    private String foto;
+    private final Data dataDiNascita;
+    private final String email;
+    private final String password;
 
     public Persona(String email, String password, String nome, String cognome, Data dataDiNascita, char genere) {
         this.nome = nome;
@@ -20,14 +18,6 @@ public abstract class Persona implements Comparable{
         this.dataDiNascita = dataDiNascita;
         this.email = email;
         this.password = password;
-    }
-
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public String getNome() {
@@ -54,17 +44,9 @@ public abstract class Persona implements Comparable{
         return password;
     }
 
-    public String getIndirizzo() {
-        return indirizzo;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
     @Override
     public int compareTo(Object other) {
-        Studente studente = (Studente) other;
-        return (this.cognome + this.nome).compareTo((studente.getCognome() + studente.getNome()));
+        Persona persona = (Persona) other;
+        return (this.cognome + this.nome).compareTo((persona.getCognome() + persona.getNome()));
     }
 }
