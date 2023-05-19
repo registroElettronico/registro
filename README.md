@@ -14,8 +14,7 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - (Studente) Visualizzazione dei voti (con filtro per materia)
 - (Studente) Visualizzazione del calendario con le attività 
 - (Studente) Visualizzazione note
-- Calcolo media voti totale
-- Visualizzazione percentuale e numero assenze
+- (Studente) Visualizzazione percentuale e numero assenze
 
 
 # Funzionalità scartate: 
@@ -37,6 +36,7 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - (Studente) Divisione tra trimestre e pentamestre per i voti
 - (Insegnante e Dirigente) Gestione di comunicazioni in bacheca
 - (Insegnante) Gestione degli argomenti trattati nella lezione
+- Calcolo media voti totale
 
 ## Files:
 Tutti i dati inseribili dagli insegnanti e visualizzabili dagli studenti saranno salvati permanentemente su file
