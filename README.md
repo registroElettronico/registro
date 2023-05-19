@@ -14,7 +14,7 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - (Studente) Visualizzazione dei voti (con filtro per materia)
 - (Studente) Visualizzazione del calendario con le attività 
 - (Studente) Visualizzazione note
-- Visualizzazione percentuale e numero assenze
+- (Studente) Visualizzazione percentuale e numero assenze
 
 
 # Funzionalità scartate: 
