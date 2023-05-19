@@ -157,8 +157,27 @@ public class GestoreFile {
         bufferedReaderRapporti.close();
     }
 
-    private static void loadAttivita() {
+    private static void loadAttivita() throws IOException, InstanceNotFoundException {
+        //inserisce i rapporti negli studenti
+        BufferedReader bufferedReaderAttivita = new BufferedReader(new FileReader("class/attivita.csv"));
+        String line;
+        bufferedReaderAttivita.readLine();
 
+        while ((line = bufferedReaderAttivita.readLine()) != null) {
+            String[] info = line.split(",");
+
+            Classe classe = getClasse(info[0]);
+
+            if (classe == null) throw new InstanceNotFoundException("CLASSE NON PRESENTE IN 'classes.csv'");
+
+            for (int i = 1; i < info.length; i++) {
+                String[] infoRapporto = info[i].split("\\|");   //splitta sulla barra verticale
+
+                classe.addAttivita(new Attivita(classe, getInsegnante(infoRapporto[0]), new Data(infoRapporto[1]), infoRapporto[2], Integer.parseInt(infoRapporto[3]), Integer.parseInt(infoRapporto[4]), infoRapporto[5]));
+            }
+        }
+
+        bufferedReaderAttivita.close();
     }
     public static void addPersona(Persona p) throws IOException {
         String content;
