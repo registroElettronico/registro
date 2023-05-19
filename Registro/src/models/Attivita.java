@@ -2,13 +2,13 @@ package models;
 
 import models.tools.Data;
 public class Attivita {
-    private Classe classe;
-    private Insegnante insegnante;
-    private Data data;
-    private String contenuto;
-    private int oraInizio;
-    private int oraFine;
-    private String tipo;
+    private final Classe classe;
+    private final Insegnante insegnante;
+    private final Data data;
+    private final String contenuto;
+    private final int oraInizio;
+    private final int oraFine;
+    private final String tipo;
 
     public Attivita(Classe classe, Insegnante insegnante, Data data, String contenuto, int oraInizio, int oraFine, String tipo) {
         this.classe = classe;

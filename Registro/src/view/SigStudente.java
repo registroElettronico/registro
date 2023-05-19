@@ -250,7 +250,7 @@ public class SigStudente extends Pagina {
                 log.setVisible(true);
                 this.setVisible(false);
             }
-        } catch (IOException ex) {
+        } catch (IOException | InstanceNotFoundException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
 

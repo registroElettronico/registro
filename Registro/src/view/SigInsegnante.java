@@ -230,7 +230,7 @@ public class SigInsegnante extends Pagina {
             }
                 
             
-        } catch (IOException ex) {
+        } catch (IOException | InstanceNotFoundException ex) {
             System.out.println("ERRORE " + ex.getMessage());
         }
 
