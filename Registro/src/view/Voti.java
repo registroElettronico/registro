@@ -28,10 +28,10 @@ public class Voti extends Pagina {
         initComponents();
         gestoreRegistro = gest;
         int i;
-        ArrayList<Voti> voti = ((Studente) gestoreRegistro.getUser()).getVoti();
+        ArrayList<Voto> voti = ((Studente) gestoreRegistro.getUser()).getVoti();
         
-        for(Voti v : voti){
-            String materia = gestoreRegistro.getUser()).getVoti().getMateria();
+        for(Voto v : voti){
+            String materia = v.getMateria();
             switch (materia) {
                 case "Educazione civica" : {
                     jList1.add(voti);

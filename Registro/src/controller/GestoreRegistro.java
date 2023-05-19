@@ -10,9 +10,9 @@ import models.tools.Data;
 import javax.management.InstanceNotFoundException;
 
 public class GestoreRegistro {
-    private ArrayList<Insegnante> insegnanti;
-    private ArrayList<Studente> studenti;
-    private ArrayList<Classe> classi;
+    private final ArrayList<Insegnante> insegnanti;
+    private final ArrayList<Studente> studenti;
+    private final ArrayList<Classe> classi;
     private Persona user;
 
     public ArrayList<Insegnante> getInsegnanti() {
@@ -83,20 +83,33 @@ public class GestoreRegistro {
         return okLogin;
     }
 
-    public boolean register(String email, String password, String tipologia, String nome, String cognome, String date, char genere, String classe) throws IOException {
+    public boolean register(String email, String password, String tipologia, String nome, String cognome, String date, char genere, String classe) throws IOException, InstanceNotFoundException {
         boolean okSignup = false;
 
         switch (tipologia) {
+<<<<<<< HEAD
             case "Studente" : {
                 Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
+=======
+            case "Studente": {
+                Classe c = this.getClasse(classe);
+                if (c == null) throw new InstanceNotFoundException("CLASSE NON VALIDA");
+
+                Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, c);
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                 this.addStudente(s);    //aggiunge lo studente alla lista
                 s.getClasse().addStudente(s);   //aggiunge la classe allo studente
                 GestoreFile.addPersona(s);
                 okSignup = true;
                 break;
             }
+<<<<<<< HEAD
             case "Insegnante" : {
+=======
+            case "Insegnante": {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                 Insegnante i = new Insegnante(email, password, nome, cognome, new Data(date), genere); //aggiunge l'insegnante alla lista
+
                 this.addInsegnante(i);
                 GestoreFile.addPersona(i);
                 okSignup = true;

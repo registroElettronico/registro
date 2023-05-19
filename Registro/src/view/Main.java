@@ -75,7 +75,7 @@ public class Main {
                     System.out.println("1. Visualizza classi;");
                     System.out.println("2. Aggiungi un voto;");
                     System.out.println("3. Aggiungi attività;");
-                    System.out.println("4. Aggiungi lezione;");
+                    System.out.println("4. Aggiungi lezione (non finito);");
                     System.out.println("5. Aggiungi assenza;");
                     System.out.println("6. Aggiungi rapporto;");
                     System.out.println("7. Aggiungi una classe;");
@@ -84,7 +84,11 @@ public class Main {
                     scan.nextLine();
 
                     switch (opzione) {
+<<<<<<< HEAD
                         case 1 : {
+=======
+                        case 1: {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
                                 System.out.println(c.getSezione() + ": ");
                                 for (Studente s : c.getStudenti()) {
@@ -93,7 +97,11 @@ public class Main {
                             }
                             break;
                         }
+<<<<<<< HEAD
                         case 2 : {
+=======
+                        case 2: {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -159,7 +167,11 @@ public class Main {
                             ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
                             break;
                         }
+<<<<<<< HEAD
                         case 3 : {
+=======
+                        case 3: {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Classe: ");
                             String classe = scan.nextLine();
 
@@ -179,6 +191,7 @@ public class Main {
                             int end = scan.nextInt();
 
 
+<<<<<<< HEAD
                             ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
                             break;
                         }
@@ -191,6 +204,70 @@ public class Main {
                             break;
                         }
                         case 6 : {
+=======
+                            ((Insegnante) gest.getUser()).addAttivita(new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
+                            break;
+                        }
+                        case 4: {
+                            System.out.println("NON FINITO");
+                            break;
+                        }
+                        case 5: {
+                            System.out.println("Scegli la classe: ");
+
+                            for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
+                                System.out.println(c.getSezione());
+                            }
+
+                            String sezione = scan.nextLine();
+                            Classe classe = gest.getClasse(sezione);
+
+                            while(classe == null) {
+                                System.out.println("Classe non valida. Scegli la classe: ");
+
+                                for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
+                                    System.out.println(c.getSezione());
+                                }
+
+                                sezione = scan.nextLine();
+                                classe = gest.getClasse(sezione);
+                            }
+
+                            System.out.println("Scegli lo studente: ");
+
+                            for (Studente s: classe.getStudenti()) {
+                                System.out.println(s.getNome() + " " + s.getCognome());
+                            }
+
+                            System.out.println("Nome: ");
+                            String nome = scan.nextLine();
+
+                            System.out.println("Cognome: ");
+                            String cognome = scan.nextLine();
+
+                            Studente studente = classe.getStudente(nome, cognome);
+
+                            while(studente == null) {
+                                System.out.println("Studente non valido. Scegli lo studente: ");
+
+                                for (Studente s: classe.getStudenti()) {
+                                    System.out.println(s.getNome() + " " + s.getCognome());
+                                }
+
+                                System.out.println("Nome: ");
+                                nome = scan.nextLine();
+
+                                System.out.println("Cognome: ");
+                                cognome = scan.nextLine();
+
+                                studente = classe.getStudente(nome, cognome);
+                            }
+
+                            ((Insegnante) gest.getUser()).addAssenza(studente);
+                            break;
+                        }
+                        case 6: {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -251,14 +328,25 @@ public class Main {
                             ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
                             break;
                         }
+<<<<<<< HEAD
                         case 7 : {
+=======
+                        case 7: {
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Sezione: ");
                             String sezione = scan.nextLine();
 
                             ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
                             break;
+<<<<<<< HEAD
                         }
                         default : {break;}
+=======
+                        }
+                        default: {
+                            break;
+                        }
+>>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                     }
                 }
             } while(opzione != 0);

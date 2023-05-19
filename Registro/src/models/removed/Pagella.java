@@ -1,4 +1,6 @@
-package models;
+package models.removed;
+
+import models.Studente;
 
 public class Pagella {
     private final Studente studente;

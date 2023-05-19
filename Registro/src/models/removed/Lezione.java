@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package models.removed;
 
+import models.Insegnante;
 import models.tools.Data;
 
 /**
@@ -12,11 +13,11 @@ import models.tools.Data;
  * @author dential
  */
 public class Lezione {
-    private String materia;
-    private Insegnante insegnante;
-    private Data data;
-    private String argomento;
-    private int ora;
+    private final String materia;
+    private final Insegnante insegnante;
+    private final Data data;
+    private final String argomento;
+    private final int ora;
 
     public Lezione(String materia, Insegnante insegnante, Data data, String argomento, int ora) {
         this.materia = materia;

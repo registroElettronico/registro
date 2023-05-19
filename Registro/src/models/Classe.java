@@ -2,11 +2,13 @@
 package models;
 
 import controllerFile.GestoreFile;
+import models.removed.Comunicazione;
+import models.removed.Lezione;
 
 import java.io.*;
 import java.util.ArrayList;
 public class Classe {
-    private String sezione;
+    private final String sezione;
     private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private final ArrayList<Studente> studenti = new ArrayList<>();
     private final ArrayList<Attivita> attivita = new ArrayList<>();
