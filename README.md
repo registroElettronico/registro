@@ -18,7 +18,7 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - Visualizzazione percentuale e numero assenze
 
 
-# Funzionalità scartate
+# Funzionalità scartate: 
 
 - Account Dirigente
 - (Insegnante) Gestione appello
