@@ -21,7 +21,10 @@ public class Assenze extends Pagina {
         gestoreRegistro = gest;
         
         int assenze = ((Studente) gestoreRegistro.getUser()).getNumeroAssenze();
-        jLabel3.setText(assenze);
+        jLabel3.setText(String.valueOf(assenze));
+
+        Float percAssenze = ((Studente) gestoreRegistro.getUser()).percAssenze();
+        jLabel4.setText(String.valueOf(percAssenze) + "%");
     }
 
     /**
@@ -38,6 +41,7 @@ public class Assenze extends Pagina {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -60,6 +64,13 @@ public class Assenze extends Pagina {
 
         jLabel4.setText(": ");
 
+        jButton1.setText("Indietro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,6 +78,7 @@ public class Assenze extends Pagina {
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -88,13 +100,22 @@ public class Assenze extends Pagina {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addGap(120, 120, 120)
+                .addComponent(jButton1)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        RegistroStudente reg = new RegistroStudente(gestoreRegistro);
+        reg.setVisible(true);
+        this.setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

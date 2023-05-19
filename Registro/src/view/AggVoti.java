@@ -48,6 +48,19 @@ public class AggVoti extends Pagina {
                 }
             }
         });
+
+        choice3.add("Educazione civica");
+        choice3.add("Informatica");
+        choice3.add("Lingua e letteratura italiana");
+        choice3.add("Lingua inglese");
+        choice3.add("Matematica");
+        choice3.add("Organizzazione aziendale");
+        choice3.add("Rc o attività alternative");
+        choice3.add("Scienze motorie e sportive");
+        choice3.add("Sistemi e reti");
+        choice3.add("Tecnologia e progettazione");
+        choice3.add("Telecomunicazioni");
+        choice3.add("Storia");
     }
 
     /**
@@ -200,22 +213,10 @@ public class AggVoti extends Pagina {
         Classe classe = gestoreRegistro.getClasse(choice1.getSelectedItem());
 
         Studente studente = classe.getStudente(nomeCompleto.split(" ")[0], nomeCompleto.split(" ")[1]);
-        
-        choice3.add("Educazione civica");
-        choice3.add("Informatica");
-        choice3.add("Lingua e letteratura italiana");
-        choice3.add("Lingua inglese");
-        choice3.add("Matematica");
-        choice3.add("Organizzazione aziendale");
-        choice3.add("Rc o attività alternative");
-        choice3.add("Scienze motorie e sportive");
-        choice3.add("Sistemi e reti");
-        choice3.add("Tecnologia e progettazione");
-        choice3.add("Telecomunicazioni");
-        choice3.add("Storia");
 
         try {
             ((Insegnante) gestoreRegistro.getUser()).addVoto(new Voto(Float.parseFloat(jTextField4.getText()), choice3.getSelectedItem(), new Data(jTextField3.getText()), studente));
+            jLabel4.setText("Voto inserito");
         } catch (IOException ex) {
             jLabel4.setText(ex.getMessage());
         }

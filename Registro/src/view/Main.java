@@ -84,11 +84,7 @@ public class Main {
                     scan.nextLine();
 
                     switch (opzione) {
-<<<<<<< HEAD
-                        case 1 : {
-=======
                         case 1: {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
                                 System.out.println(c.getSezione() + ": ");
                                 for (Studente s : c.getStudenti()) {
@@ -97,11 +93,7 @@ public class Main {
                             }
                             break;
                         }
-<<<<<<< HEAD
-                        case 2 : {
-=======
                         case 2: {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -167,11 +159,7 @@ public class Main {
                             ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
                             break;
                         }
-<<<<<<< HEAD
-                        case 3 : {
-=======
                         case 3: {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Classe: ");
                             String classe = scan.nextLine();
 
@@ -190,25 +178,10 @@ public class Main {
                             System.out.println("Ora fine: ");
                             int end = scan.nextInt();
 
-
-<<<<<<< HEAD
-                            ((Insegnante) gest.getUser()).addAttivita(gest.getClasse(classe), new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
-                            break;
-                        }
-                        case 4 : {
-                            System.out.println("NON FINITO");
-                            break;
-                        }
-                        case 5 : {
-                            System.out.println("NON FINITO");
-                            break;
-                        }
-                        case 6 : {
-=======
                             ((Insegnante) gest.getUser()).addAttivita(new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
                             break;
                         }
-                        case 4: {
+                        case 4 : {
                             System.out.println("NON FINITO");
                             break;
                         }
@@ -267,7 +240,6 @@ public class Main {
                             break;
                         }
                         case 6: {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Scegli la classe: ");
 
                             for (Classe c : ((Insegnante) gest.getUser()).getClassi()) {
@@ -328,25 +300,14 @@ public class Main {
                             ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
                             break;
                         }
-<<<<<<< HEAD
-                        case 7 : {
-=======
                         case 7: {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                             System.out.println("Sezione: ");
                             String sezione = scan.nextLine();
 
                             ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
                             break;
-<<<<<<< HEAD
                         }
                         default : {break;}
-=======
-                        }
-                        default: {
-                            break;
-                        }
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                     }
                 }
             } while(opzione != 0);

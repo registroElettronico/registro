@@ -51,4 +51,8 @@ public class Studente extends Persona{
     public ArrayList<Rapporto> getRapporti() {
         return rapporti;
     }
+
+    public int getNumeroAssenze() {
+        return this.numeroAssenze;
+    }
 }

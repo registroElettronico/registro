@@ -87,27 +87,18 @@ public class GestoreRegistro {
         boolean okSignup = false;
 
         switch (tipologia) {
-<<<<<<< HEAD
-            case "Studente" : {
-                Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, this.getClasse(classe));
-=======
             case "Studente": {
                 Classe c = this.getClasse(classe);
                 if (c == null) throw new InstanceNotFoundException("CLASSE NON VALIDA");
 
                 Studente s = new Studente(email, password, nome, cognome, new Data(date), genere, c);
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                 this.addStudente(s);    //aggiunge lo studente alla lista
                 s.getClasse().addStudente(s);   //aggiunge la classe allo studente
                 GestoreFile.addPersona(s);
                 okSignup = true;
                 break;
             }
-<<<<<<< HEAD
-            case "Insegnante" : {
-=======
             case "Insegnante": {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                 Insegnante i = new Insegnante(email, password, nome, cognome, new Data(date), genere); //aggiunge l'insegnante alla lista
 
                 this.addInsegnante(i);

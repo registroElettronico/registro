@@ -164,7 +164,7 @@ public class Login extends Pagina {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws InstanceNotFoundException, IOException {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Index ind = new Index(gestoreRegistro);
         ind.setVisible(true);
         this.setVisible(false);

@@ -12,8 +12,8 @@ public class Classe {
     private final ArrayList<Insegnante> insegnanti = new ArrayList<>();
     private final ArrayList<Studente> studenti = new ArrayList<>();
     private final ArrayList<Attivita> attivita = new ArrayList<>();
-    private final ArrayList<Lezione> lezioni = new ArrayList<>();
-    private final ArrayList<Comunicazione> comunicazioni = new ArrayList<>();
+    //private final ArrayList<Lezione> lezioni = new ArrayList<>();
+    //private final ArrayList<Comunicazione> comunicazioni = new ArrayList<>();
 
     public Classe(String sezione) {
         this.sezione = sezione;
@@ -42,7 +42,8 @@ public class Classe {
         if (a == null) throw new NullPointerException("Attività non valida");
         attivita.add(a);
     }
-    
+
+    /*
     public void addLezione (Lezione l) {
         if (l == null) throw new NullPointerException("Lezione non valida");
         lezioni.add(l);
@@ -53,6 +54,8 @@ public class Classe {
         comunicazioni.add(com);
     }
 
+     */
+
     public String getSezione() {
         return sezione;
     }
@@ -60,5 +63,9 @@ public class Classe {
     public Studente getStudente(String nome, String cognome){
         for (Studente s: this.studenti) if (s.getNome().equals(nome) && s.getCognome().equals(cognome)) return s;
         return null;
+    }
+
+    public ArrayList<Attivita> getAttivita() {
+        return attivita;
     }
 }

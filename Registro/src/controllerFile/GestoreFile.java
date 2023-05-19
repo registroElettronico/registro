@@ -30,11 +30,7 @@ public class GestoreFile {
             String[] info = line.split(",");
 
             switch (info[2]) {
-<<<<<<< HEAD
-                case "Studente" : {
-=======
                 case "Studente": {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                     Classe c = getClasse(info[7]);
 
                     if (c == null){
@@ -45,11 +41,7 @@ public class GestoreFile {
                     studenti.add(s);    //aggiunge lo studente alla lista
                     break;
                 }
-<<<<<<< HEAD
-                case "Insegnante" : {
-=======
                 case "Insegnante": {
->>>>>>> f81a0fe36efafb317bcf00915c1e18f44b6c4589
                     Insegnante i = new Insegnante(info[0], info[1], info[3], info[4], new Data(info[5]), info[6].charAt(0));
                     insegnanti.add(i);  //aggiunge l'insegnante alla lista
                     break;
@@ -101,6 +93,7 @@ public class GestoreFile {
     private static void loadVoti() throws InstanceNotFoundException, IOException {
         //inserisce i voti negli studenti
         BufferedReader bufferedReaderVoti = new BufferedReader(new FileReader("student/votes.csv"));
+        bufferedReaderVoti.readLine();
         String line;
 
         while ((line = bufferedReaderVoti.readLine()) != null) {
@@ -113,7 +106,7 @@ public class GestoreFile {
             for (int i = 1; i < info.length; i++) {
                 String[] infoVoto = info[i].split("\\|");   //splitta sulla barra verticale
 
-                studente.addVoto(new Voto(Float.parseFloat(infoVoto[0]), infoVoto[1], new Data(infoVoto[3]), studente));
+                studente.addVoto(new Voto(Float.parseFloat(infoVoto[0]), infoVoto[1], new Data(infoVoto[2]), studente));
             }
         }
 
@@ -124,6 +117,7 @@ public class GestoreFile {
         //inserisce le assenze negli studenti
         BufferedReader bufferedReaderAssenze = new BufferedReader(new FileReader("student/absence.csv"));
         String line;
+        bufferedReaderAssenze.readLine();
 
         while ((line = bufferedReaderAssenze.readLine()) != null) {
             String[] info = line.split(",");
@@ -142,6 +136,9 @@ public class GestoreFile {
         //inserisce i rapporti negli studenti
         BufferedReader bufferedReaderRapporti = new BufferedReader(new FileReader("student/notes.csv"));
         String line;
+        bufferedReaderRapporti.readLine();
+
+
 
         while ((line = bufferedReaderRapporti.readLine()) != null) {
             String[] info = line.split(",");
@@ -337,9 +334,9 @@ public class GestoreFile {
         while ((lineContent = br.readLine()) != null) {
 
 
-            if (lineContent.split(",")[0].equals(studente.getClasse().getSezione())) {
+            if (lineContent.split(",")[0].equals(studente.getEmail())) {
                 giaPresente = true;
-                lineContent = (lineContent.split(",")[0] + "," + Integer.parseInt(lineContent.split(",")[1]+1));
+                lineContent = (lineContent.split(",")[0] + "," + (Integer.parseInt(lineContent.split(",")[1])+1));
             }
 
             content += lineContent + "\n";

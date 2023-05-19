@@ -7,11 +7,14 @@ package view;
 import controller.GestoreRegistro;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import models.Classe;
 import models.Insegnante;
 import models.Studente;
+import models.Voto;
+import models.tools.Data;
 
 /**
  *
@@ -62,6 +65,7 @@ public class AggAssenze extends Pagina {
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +108,10 @@ public class AggAssenze extends Pagina {
                             .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(choice2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +128,9 @@ public class AggAssenze extends Pagina {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(59, 59, 59))
         );
 
         pack();
@@ -135,6 +145,15 @@ public class AggAssenze extends Pagina {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nomeCompleto = choice2.getSelectedItem();
         Classe classe = gestoreRegistro.getClasse(choice1.getSelectedItem());
+
+        Studente studente = classe.getStudente(nomeCompleto.split(" ")[0], nomeCompleto.split(" ")[1]);
+
+        try {
+            ((Insegnante) gestoreRegistro.getUser()).addAssenza(studente);
+            jLabel1.setText("Assenza inserita");
+        } catch (IOException ex) {
+            jLabel1.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -142,6 +161,7 @@ public class AggAssenze extends Pagina {
     private java.awt.Choice choice2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
