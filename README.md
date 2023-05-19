@@ -4,7 +4,7 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 
 # Funzionalità:
 
-- Registrazione (email e password, scelta tra Insegnante o Studente o Dirigente, nome, cognome, genere, data di nascita)
+- Registrazione (email e password, scelta tra Insegnante o Studente, nome, cognome, genere, data di nascita)
 - Log-in
 - Visualizzazione delle attività su un calendario
 - (Insegnante) Gestione delle classi
@@ -18,8 +18,9 @@ Realizzare un registro elettronico funzionale simile all’applicazione Classevi
 - Visualizzazione percentuale e numero assenze
 
 
-#Funzionalità scartate
+# Funzionalità scartate
 
+- Account Dirigente
 - (Insegnante) Gestione appello
 - Visualizzazione trend voti
 - Calcolo media voti per materia
