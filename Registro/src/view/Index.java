@@ -18,9 +18,15 @@ public class Index extends Pagina {
     /**
      * Creates new form Index
      */
-    public Index() throws IOException, InstanceNotFoundException {
+    public Index(){
         initComponents();
-        gestoreRegistro = new GestoreRegistro();
+
+        try {
+            gestoreRegistro = new GestoreRegistro();
+        } catch (IOException | InstanceNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public Index(GestoreRegistro g) {
@@ -133,11 +139,7 @@ public class Index extends Pagina {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new Index().setVisible(true);
-                } catch (IOException | InstanceNotFoundException e) {
-                    Logger.getLogger(e.getMessage());
-                }
+                new Index().setVisible(true);
             }
         });
     }

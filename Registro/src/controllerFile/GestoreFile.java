@@ -159,7 +159,7 @@ public class GestoreFile {
 
     private static void loadAttivita() throws IOException, InstanceNotFoundException {
         //inserisce i rapporti negli studenti
-        BufferedReader bufferedReaderAttivita = new BufferedReader(new FileReader("class/attivita.csv"));
+        BufferedReader bufferedReaderAttivita = new BufferedReader(new FileReader("class/activities.csv"));
         String line;
         bufferedReaderAttivita.readLine();
 

@@ -9,8 +9,13 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InstanceNotFoundException {
-        GestoreRegistro gest = new GestoreRegistro();
+    public static void main(String[] args) {
+        GestoreRegistro gest;
+        try {
+            gest = new GestoreRegistro();
+        } catch (IOException | InstanceNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         Scanner scan = new Scanner(System.in);
 
         do {
@@ -58,8 +63,18 @@ public class Main {
                         System.out.println("Classe: ");
                         String classe = scan.nextLine();
 
-                        gest.register(email, password, tipologia, nome, cognome, date, genere, classe);
-                    } else gest.register(email, password, tipologia, nome, cognome, date, genere, null);
+                        try {
+                            gest.register(email, password, tipologia, nome, cognome, date, genere, classe);
+                        } catch (IOException | InstanceNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        try {
+                            gest.register(email, password, tipologia, nome, cognome, date, genere, null);
+                        } catch (IOException | InstanceNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     break;
                 }
             }
@@ -156,7 +171,11 @@ public class Main {
                             String data = scan.nextLine();
 
 
-                            ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
+                            try {
+                                ((Insegnante) gest.getUser()).addVoto(new Voto(voto, materia, new Data(data), studente));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             break;
                         }
                         case 3: {
@@ -178,7 +197,11 @@ public class Main {
                             System.out.println("Ora fine: ");
                             int end = scan.nextInt();
 
-                            ((Insegnante) gest.getUser()).addAttivita(new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
+                            try {
+                                ((Insegnante) gest.getUser()).addAttivita(new Attivita(gest.getClasse(classe), (Insegnante) gest.getUser(), new Data(data), content, start, end, tipo));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             break;
                         }
                         case 4 : {
@@ -236,7 +259,11 @@ public class Main {
                                 studente = classe.getStudente(nome, cognome);
                             }
 
-                            ((Insegnante) gest.getUser()).addAssenza(studente);
+                            try {
+                                ((Insegnante) gest.getUser()).addAssenza(studente);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             break;
                         }
                         case 6: {
@@ -297,14 +324,22 @@ public class Main {
                             String data = scan.nextLine();
 
 
-                            ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
+                            try {
+                                ((Insegnante) gest.getUser()).addRapporto(new Rapporto((Insegnante) gest.getUser(), studente, motivo, new Data(data)));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             break;
                         }
                         case 7: {
                             System.out.println("Sezione: ");
                             String sezione = scan.nextLine();
 
-                            ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
+                            try {
+                                ((Insegnante) gest.getUser()).addClasse(new Classe(sezione));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             break;
                         }
                         default : {break;}

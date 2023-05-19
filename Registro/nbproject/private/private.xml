@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/view/AggNote.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/view/Main.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/view/Pagina.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/controllerFile/GestoreFile.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/models/Studente.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/view/Index.java</file>
+            <file>file:/C:/Users/iuves/Documents/Java/registro/registro/src/controller/GestoreRegistro.java</file>
         </group>
     </open-files>
 </project-private>
